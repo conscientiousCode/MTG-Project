@@ -90,5 +90,36 @@ public class GenSqlStatements {
 		for(String s: generated){
 			System.out.println(s);
 		}
+		
+		generated = InsertSiteUsers(1,10);
+		for(String s : generated){
+			System.out.println(s);
+		}
+		
 	}
+	
+	
+	public static void InsertCustomers(){
+		
+	}
+	
+	/*Returns an array of length 2 with {email, password}
+	 * */
+	public static String[] InsertSiteUsers(int lower, int upper){
+		String[] statements = new String[upper-lower+1];
+		
+		for(int i = lower; i<= upper; i++){
+			String email = GenSqlStatements.fakeEmails(i);
+			statements[i - lower] = "INSERT INTO SiteUser (email, password) VALUES (" + email + ", " + email + ");";
+		}
+		return statements;
+		
+		
+	}
+	
+	private static String fakeEmails(int emailNumber){
+		return "'fakeEmail"+emailNumber+"@hoxmail.com'";
+	}
+	
+	
 }
