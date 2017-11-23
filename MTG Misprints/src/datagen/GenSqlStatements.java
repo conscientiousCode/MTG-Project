@@ -93,7 +93,7 @@ public class GenSqlStatements {
 	 * 
 	 * @param PKs Generates the number of insert statements = to PKs length. One statement per key
 	 * @param table the table that the insert statements will refer to
-	 * @param columns the name of the columns to be inserted into, this order must match the order of the data sources
+	 * @param columns the name of the columns to be inserted into, this order must match the order of the primary key and then data sources
 	 * @param dataSources the data used to generate the random values of the statement. The order of dataSources must match the order of columns
 	 * @return an array of insert statements referencing table and columns and using dataSources to generate data
 	 */
@@ -186,9 +186,6 @@ public class GenSqlStatements {
 	}
 	
 	
-	public static void InsertCustomers(){
-		
-	}
 	
 	/*Returns an array of length 2 with {email, password}
 	 * */
@@ -229,7 +226,6 @@ public class GenSqlStatements {
 		return InsertWithPK(ids, "Customer", columns, sFirst, sLast, sAddress, sCity, sProvinces, sPostalCodes);
 		
 	}
-	
 	
 	private static String[] convertToSqlString(String[] data){
 		String[] sqlStrings = new String[data.length];
