@@ -110,7 +110,7 @@ public class GenSqlStatements {
 		
 		for(int i = lower; i<= upper; i++){
 			String email = GenSqlStatements.fakeEmails(i);
-			statements[i - lower] = "INSERT INTO SiteUser (email, password) VALUES (" + email + ", " + email + ");";
+			statements[i - lower] = "INSERT INTO SiteUser (email, password) VALUES ('" + email + "', '" + email + "');";
 		}
 		return statements;
 		
@@ -118,7 +118,7 @@ public class GenSqlStatements {
 	}
 	
 	private static String fakeEmails(int emailNumber){
-		return "'fakeEmail"+emailNumber+"@hoxmail.com'";
+		return "fakeEmail"+emailNumber+"@hoxmail.com";
 	}
 	
 	
