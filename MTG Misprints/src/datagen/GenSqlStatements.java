@@ -162,24 +162,20 @@ public class GenSqlStatements {
 	
 	
 	public static void main(String[] args){
-		int numToGen = 5;
-		String table = "FakeTable";
-		String[] columns = new String[]{"c1", "c2", "c3"};
-		String[] d1 = new String[]{"x1","x2","x3", "x4", "x5"};
-		String[] d2 = new String[]{"y1","y2","y3", "y4", "y5"};
-		String[] d3 = new String[]{"z1","z2","z3", "z4", "z5"};
 		
-		String[] generated = Insert(numToGen, table, null, d1,d2,d3);
-		for(String s: generated){
+		String[] siteUsers = genInsertSiteUsers(1,50);
+		for(String s : siteUsers){
 			System.out.println(s);
 		}
 		
-		generated = genInsertSiteUsers(1,10);
-		for(String s : generated){
-			System.out.println(s);
+		
+		int[] customerIds = new int[siteUsers.length];
+		
+		for(int i = 0; i < customerIds.length; i++ ){
+			customerIds[i] = i+1;
 		}
 
-		generated = genInsertCustomerForIds(new int[]{1,2,3,4,5,6,7,8,9,10});
+		String[] generated = genInsertCustomerForIds(customerIds);
 		for(String s : generated){
 			System.out.println(s);
 		}
