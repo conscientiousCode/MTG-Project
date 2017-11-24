@@ -17,9 +17,9 @@ public class LoadData
 	public static void loadData() throws Exception
 	{		
 		// TODO: Fill-in
-		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;databaseName=db_dherman";
-		String uid = "dherman";
-		String pw = "55848162";
+		String url = "jdbc:mysql://cosc304.ok.ubc.ca/group2";
+		String uid = "group2";
+		String pw = "group2";
 		
 		System.out.println("Connecting to database.");
 
