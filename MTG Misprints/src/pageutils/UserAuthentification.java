@@ -1,5 +1,6 @@
 package pageutils;
 import java.sql.*;
+import pageutils.CommonSQL;
 import dto.User;
 
 public class UserAuthentification {
@@ -11,7 +12,7 @@ public class UserAuthentification {
 	
 	public static boolean testConnection() throws ClassNotFoundException{
 		Class.forName("com.mysql.jdbc.Driver");
-		try(Connection con = DriverManager.getConnection(url, uid, pw);){
+		try(Connection con = CommonSQL.getDBConnection()){
 			return true;
 		}catch(SQLException e){
 			e.printStackTrace(System.out);
@@ -23,7 +24,7 @@ public class UserAuthentification {
 	 * */
 	public static User authenticate(String userName, String password) throws ClassNotFoundException{
 		Class.forName("com.mysql.jdbc.Driver");//REQUIRED TO FORCE LOAD DRIVER
-		try(Connection con = DriverManager.getConnection(url, uid, pw);
+		try(Connection con = CommonSQL.getDBConnection();
 				PreparedStatement pstmt = con.prepareStatement(
 					  "SELECT *" 
 					+ " FROM SiteUser"

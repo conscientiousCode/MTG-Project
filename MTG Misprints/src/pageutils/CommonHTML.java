@@ -62,6 +62,9 @@ public class CommonHTML {
 						+ "WELCOME " + user.name
 					+ "</td>"
 					+ "<td style=\"width:33%; text-align:right;\">"
+						+ "<a href=\"cart.jsp\">My Cart</a>" 
+					+ "</td>"
+					+ "<td style=\"width:33%; text-align:right;\">"
 						+ "<a href=\"logout.jsp\">Logout</a>" 
 					+ "</td>"
 				+ "</tr>"
