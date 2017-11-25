@@ -15,6 +15,7 @@
 		out.println("SQL_ERROR(login) cause authentification to fail. Contact administator");
 	}else if(user.userGroup == User.GROUP_CUSTOMER){
 		session.setAttribute("user", user);
+		response.sendRedirect("home.jsp");
 	}else if(user.userGroup == User.GROUP_MERCHANT){
 		
 	}else if(user.userGroup == User.GROUP_FAILED_LOGIN){
