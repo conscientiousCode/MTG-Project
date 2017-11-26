@@ -64,7 +64,7 @@ public class CommonHTML {
 						+  "<table style=\"width:100%; padding:5px;\">"
 							+ "<tr>"
 								+ "<td style=\"text-align:right\">"
-									+ "WELCOME " + user.name
+									+ user.name
 								+ "</td>"
 							+ "</tr>"
 							+ "<tr>"
@@ -102,7 +102,7 @@ public class CommonHTML {
 						+ "<table style=\"width:100%; padding:5px;\">"
 							+ "<tr>"
 								+ "<td>"
-									+ "WELCOME " + user.name
+									+ user.name
 								+ "</td>"
 							+ "</tr>"
 							+ "<tr>"
