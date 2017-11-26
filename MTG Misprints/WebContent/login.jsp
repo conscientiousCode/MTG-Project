@@ -17,7 +17,8 @@
 		session.setAttribute("user", user);
 		response.sendRedirect("home.jsp");
 	}else if(user.userGroup == User.GROUP_MERCHANT){
-		
+		session.setAttribute("user", user);
+		response.sendRedirect("home.jsp");
 	}else if(user.userGroup == User.GROUP_FAILED_LOGIN){
 		
 	}else{

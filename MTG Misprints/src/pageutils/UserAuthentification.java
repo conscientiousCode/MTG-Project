@@ -48,12 +48,12 @@ public class UserAuthentification {
 					return new User(User.GROUP_CUSTOMER, suid, name);
 					
 				}else{
-					sql = "Select * FROM Merchant WHERE custid = ?";
+					sql = "Select * FROM Merchant WHERE suid = ?";
 					userGroupStmt = con.prepareStatement(sql);
 					userGroupStmt.setInt(1, suid);
 					rs = userGroupStmt.executeQuery();
 					if(rs.next()){//user is a merchant
-						name = rs.getString("firstname");
+						name = rs.getString("merchantname");
 						userGroupStmt.close();
 						return new User(User.GROUP_MERCHANT, suid, name);
 					}else{//else UNHANDLED USER

@@ -14,6 +14,8 @@ public class CommonHTML {
 			return getHeaderForNotLoggedIn();
 		}else if(user.userGroup == User.GROUP_CUSTOMER){//Currently do the same thing
 			return getHeaderForCustomer(user);
+		}else if(user.userGroup == User.GROUP_MERCHANT){
+			return getHeaderForMerchant(user);
 		}else{
 			return "unimplemented user type in CommonHTML:getHeader";
 		}
@@ -58,14 +60,62 @@ public class CommonHTML {
 							+ "<input type=\"submit\" value=\"Search\">"
 						+ "</form>"
 					+ "</td>"
-					+ "<td style=\"width:33%; text-align:right;\">"
-						+ "WELCOME " + user.name
+					+ "<td style=\"width:33%; text-align:center;\">"
+						+  "<table style=\"width:100%; padding:5px;\">"
+							+ "<tr>"
+								+ "<td style=\"text-align:right\">"
+									+ "WELCOME " + user.name
+								+ "</td>"
+							+ "</tr>"
+							+ "<tr>"
+								+ "<td style=\"text-align:right\">"
+									+ "<a href=\"cart.jsp\">My Cart</a>"
+								+ "</td>"
+							+ "</tr>"
+							+ "<tr>"
+								+ "<td style=\"text-align:right\">"
+									+ "<a href=\"logout.jsp\">Logout</a>" 
+								+ "</td>"
+							+ "</tr>"
+						+ "</table>"
+					+ "</td>"
+				+ "</tr>"
+			+ "</table>"
+			+ "<table>"	
+			+ "</table>";
+	}
+	
+	private static String getHeaderForMerchant(User user){
+		return "<table style=\"width:100%; padding:10px;\">"
+				+ "<tr>"
+					+ "<td style=\"width:33%; text-align:left;\">"
+						+ "<image src=\"res/Logo.png\">"
+					+ "</td>"
+					+ "<td style=\"width:33%; text-align:center;\">"
+						+ "<b>Search Cards</b><br>"
+						+ "<form method=get action=searchresults.jsp>"
+							+ "<input type=\"text\" name=\"querry\" size=\"20\">"
+							+ "<input type=\"submit\" value=\"Search\">"
+						+ "</form>"
 					+ "</td>"
 					+ "<td style=\"width:33%; text-align:right;\">"
-						+ "<a href=\"cart.jsp\">My Cart</a>" 
-					+ "</td>"
-					+ "<td style=\"width:33%; text-align:right;\">"
-						+ "<a href=\"logout.jsp\">Logout</a>" 
+						+ "<table style=\"width:100%; padding:5px;\">"
+							+ "<tr>"
+								+ "<td>"
+									+ "WELCOME " + user.name
+								+ "</td>"
+							+ "</tr>"
+							+ "<tr>"
+								+ "<td style=\"text-align:right\">"
+									+ "<a href=\"merchantinventory.jsp\">My Cards</a>"
+								+ "</td>"
+							+ "</tr>"
+							+ "<tr>"
+								+ "<td style=\"text-align:right\">"
+									+ "<a href=\"logout.jsp\">Logout</a>" 
+								+ "</td>"
+							+ "</tr>"
+						+ "</table>"
 					+ "</td>"
 				+ "</tr>"
 			+ "</table>"
