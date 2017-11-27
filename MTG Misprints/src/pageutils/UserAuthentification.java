@@ -41,7 +41,6 @@ public class UserAuthentification {
 				PreparedStatement userGroupStmt = con.prepareStatement(sql);
 				userGroupStmt.setInt(1, suid);
 				rs = userGroupStmt.executeQuery();
-				System.out.println("Entry found mathing: " + suid);
 				if(rs.next()){//user is a customer
 					name = rs.getString("firstname");
 					userGroupStmt.close();

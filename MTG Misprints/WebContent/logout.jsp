@@ -1,4 +1,5 @@
 <%@page import = "dto.*" %>
+<%@page import = "pageutils.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,7 +10,9 @@
 </head>
 <body>
 <% 
-	session.setAttribute("user", null);
+
+	session.invalidate();//This writes the cart to the database, as the cart implements HttpSessionBindingListener
+	request.getSession(true);//Start new session
 	response.sendRedirect("home.jsp");
 %>
 

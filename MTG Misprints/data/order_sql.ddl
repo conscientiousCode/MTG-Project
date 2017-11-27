@@ -86,11 +86,11 @@ CREATE TABLE InOrder(
 )ENGINE=InnoDB;
 
 CREATE TABLE InCart(
-	suid INTEGER,
+	custid INTEGER,
 	cardproductid INTEGER,
 	quantity INTEGER NOT NULL,
-	PRIMARY KEY (suid, cardproductid),
-	FOREIGN KEY (suid) REFERENCES SiteUser(suid)
+	PRIMARY KEY (custid, cardproductid),
+	FOREIGN KEY (custid) REFERENCES Customer(custid)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	FOREIGN KEY (cardproductid) REFERENCES CardProduct(cardproductid)
@@ -123,46 +123,7 @@ INSERT INTO SiteUser (email, password) VALUES ('fakeEmail7@hoxmail.com', 'fakeEm
 INSERT INTO SiteUser (email, password) VALUES ('fakeEmail8@hoxmail.com', 'fakeEmail8@hoxmail.com');
 INSERT INTO SiteUser (email, password) VALUES ('fakeEmail9@hoxmail.com', 'fakeEmail9@hoxmail.com');
 INSERT INTO SiteUser (email, password) VALUES ('merchant1@hoxmail.com', 'merchant1@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail11@hoxmail.com', 'fakeEmail11@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail12@hoxmail.com', 'fakeEmail12@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail13@hoxmail.com', 'fakeEmail13@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail14@hoxmail.com', 'fakeEmail14@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail15@hoxmail.com', 'fakeEmail15@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail16@hoxmail.com', 'fakeEmail16@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail17@hoxmail.com', 'fakeEmail17@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail18@hoxmail.com', 'fakeEmail18@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail19@hoxmail.com', 'fakeEmail19@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail20@hoxmail.com', 'fakeEmail20@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail21@hoxmail.com', 'fakeEmail21@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail22@hoxmail.com', 'fakeEmail22@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail23@hoxmail.com', 'fakeEmail23@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail24@hoxmail.com', 'fakeEmail24@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail25@hoxmail.com', 'fakeEmail25@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail26@hoxmail.com', 'fakeEmail26@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail27@hoxmail.com', 'fakeEmail27@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail28@hoxmail.com', 'fakeEmail28@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail29@hoxmail.com', 'fakeEmail29@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail30@hoxmail.com', 'fakeEmail30@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail31@hoxmail.com', 'fakeEmail31@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail32@hoxmail.com', 'fakeEmail32@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail33@hoxmail.com', 'fakeEmail33@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail34@hoxmail.com', 'fakeEmail34@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail35@hoxmail.com', 'fakeEmail35@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail36@hoxmail.com', 'fakeEmail36@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail37@hoxmail.com', 'fakeEmail37@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail38@hoxmail.com', 'fakeEmail38@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail39@hoxmail.com', 'fakeEmail39@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail40@hoxmail.com', 'fakeEmail40@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail41@hoxmail.com', 'fakeEmail41@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail42@hoxmail.com', 'fakeEmail42@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail43@hoxmail.com', 'fakeEmail43@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail44@hoxmail.com', 'fakeEmail44@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail45@hoxmail.com', 'fakeEmail45@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail46@hoxmail.com', 'fakeEmail46@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail47@hoxmail.com', 'fakeEmail47@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail48@hoxmail.com', 'fakeEmail48@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail49@hoxmail.com', 'fakeEmail49@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail50@hoxmail.com', 'fakeEmail50@hoxmail.com');
+
 INSERT INTO Customer (custid, firstname, lastname, address, city, province, postalcode) VALUES (1, 'Customer', 'One', '17 street ave', 'Edmonton', 'BC', 'G7G7G7');
 INSERT INTO Customer (custid, firstname, lastname, address, city, province, postalcode) VALUES (2, 'Ned', 'Sampson', '5 street ave', 'Calgary', 'AB', 'H8H8H8');
 INSERT INTO Customer (custid, firstname, lastname, address, city, province, postalcode) VALUES (3, 'Tom', 'Doe', '16 street ave', 'Montreal', 'MB', 'G7G7G7');
@@ -180,4 +141,10 @@ INSERT INTO CardProduct (merchantid, name, price, inventory) VALUES (10, 'card2'
 INSERT INTO CardProduct (merchantid, name, price, inventory) VALUES (10, 'card2', 3, 5);
 INSERT INTO CardProduct (merchantid, name, price, inventory) VALUES (10, 'card2', 4, 5);
 INSERT INTO CardProduct (merchantid, name, price, inventory) VALUES (10, 'card2', 5, 5);
+
+INSERT INTO InCart (cardproductid, custid, quantity) VALUES (1, 1, 1);
+INSERT INTO InCart (cardproductid, custid, quantity) VALUES (2, 1, 2);
+INSERT INTO InCart (cardproductid, custid, quantity) VALUES (3, 1, 3);
+INSERT INTO InCart (cardproductid, custid, quantity) VALUES (4, 1, 4);
+INSERT INTO InCart (cardproductid, custid, quantity) VALUES (5, 1, 5);
 
