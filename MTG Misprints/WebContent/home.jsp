@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="pageutils.*" %>
 <html>
 <head>
 	<title>MTG Misprints</title>
@@ -70,13 +71,9 @@
 		<!-- Some progress on jsp code -->
 		<!--
 		<%
-			// Error when connecting states that no suitable driver is found.
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/group2";
-			String uid = "group2";
-			String pw = "group2";
 			try {
 				
-				Connection con = DriverManager.getConnection(url, uid, pw);
+				Connection con = CommonSQL.getDBConnection();
 				PreparedStatement ps = con.prepareStatement("SELECT image, name, description FROM CardProduct ORDER BY price LIMIT 5");
 				ps.execute();
 				ResultSet rs = ps.getResultSet();
