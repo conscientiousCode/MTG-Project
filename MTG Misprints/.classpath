@@ -14,7 +14,11 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="F:/COSC/TomCat/apache-tomcat-8.0.47/lib"/>
 	<classpathentry kind="lib" path="F:/COSC/TomCat/apache-tomcat-8.0.47/lib/servlet-api.jar"/>
+=======
+	<classpathentry kind="lib" path="D:/apache-tomcat-8.0.47/lib/servlet-api.jar"/>
+>>>>>>> refs/remotes/origin/master
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

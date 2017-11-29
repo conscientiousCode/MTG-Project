@@ -136,11 +136,11 @@ INSERT INTO Customer (custid, firstname, lastname, address, city, province, post
 INSERT INTO Merchant (suid, merchantname) VALUES (10, 'Best Trash Cards');
 
 
-INSERT INTO CardProduct (merchantid, name, price, inventory) VALUES (10, 'card1', 1, 5);
-INSERT INTO CardProduct (merchantid, name, price, inventory) VALUES (10, 'card2', 2, 5);
-INSERT INTO CardProduct (merchantid, name, price, inventory) VALUES (10, 'card2', 3, 5);
-INSERT INTO CardProduct (merchantid, name, price, inventory) VALUES (10, 'card2', 4, 5);
-INSERT INTO CardProduct (merchantid, name, price, inventory) VALUES (10, 'card2', 5, 5);
+INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card1', 1, 5, 'first description');
+INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 2, 5, 'second description');
+INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 3, 5, 'third description');
+INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 4, 5, 'fourth description');
+INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 5, 5, 'fifth description');
 
 INSERT INTO InCart (cardproductid, custid, quantity) VALUES (1, 1, 1);
 INSERT INTO InCart (cardproductid, custid, quantity) VALUES (2, 1, 2);
@@ -148,3 +148,6 @@ INSERT INTO InCart (cardproductid, custid, quantity) VALUES (3, 1, 3);
 INSERT INTO InCart (cardproductid, custid, quantity) VALUES (4, 1, 4);
 INSERT INTO InCart (cardproductid, custid, quantity) VALUES (5, 1, 5);
 
+INSERT INTO ProductOrder (custid, orderdate, creditcard, cardexpiry, totalcost) VALUES (1, '2017-11-28', '1234567890123456', '3000-11-28', 9);
+INSERT INTO InOrder (productorderid, cardproductid, quantity) VALUES (1, 4, 1);
+INSERT INTO InOrder (productorderid, cardproductid, quantity) VALUES (1, 5, 1);
