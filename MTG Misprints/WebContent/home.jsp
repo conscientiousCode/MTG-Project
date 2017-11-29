@@ -60,13 +60,9 @@
 	<!-- WEBPAGE CONTENT -->
 	<!-- TODO: fetch sample products via sql -->
 	
+	<h1>Sample Products</h1>
+	
 	<table>
-		
-		<tr>
-			<td colspan=2>
-				<h1>Sample Products</h1>
-			</td>
-		</tr>
 		
 		<!-- Some progress on jsp code -->
 		<!--
