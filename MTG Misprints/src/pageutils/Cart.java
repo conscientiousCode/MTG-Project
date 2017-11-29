@@ -41,7 +41,7 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 	
 	@Override
 	public void valueBound(HttpSessionBindingEvent arg0) {
-		// TODO Auto-generated method stub
+		//Doesnt need to do anything
 		
 	}
 	@Override
@@ -146,7 +146,7 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 		}
 		Cart postCart = getCartFromDatabase(user);
 		deleteOldUserCart(user);
-		printCartToConsole(postCart);
+		//DEBUG: printCartToConsole(postCart);
 		return postCart;
 	}
 	
@@ -174,11 +174,59 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 		}
 	}
 	
+	/**
+	 * 
+	 * @param cardproductid the id of the item requested
+	 * @param quantityRequested How many of the item they want
+	 * @return A CartItem of the product with a quantity as close as possible to the requested without going over the merchants inventory.
+	 *	If no such item or some exception, return null;
+	 */
+	public static CartItem getCartItemFor(int cardproductid, int quantityRequested){
+		
+		String getCard = "SELECT cardproductid, name, price, inventory FROM CardProduct WHERE cardproductid = ?";
+		
+		
+		try(Connection con = CommonSQL.getDBConnection()){
+			PreparedStatement pstmt = con.prepareStatement(getCard);
+			pstmt.setInt(1, cardproductid);
+			ResultSet rs = pstmt.executeQuery();
+			
+			String name;
+			BigDecimal price;
+			int inventory, quantityGiven;
+			
+			if(rs.next()){
+				inventory = rs.getInt("inventory");
+				quantityGiven = (inventory > quantityRequested)?(quantityRequested):(inventory);
+				name = rs.getString("name");
+				price = rs.getBigDecimal("price");
+				
+				pstmt.close();
+				return new CartItem(cardproductid, name, price, quantityGiven);
+			}else{
+				pstmt.close();
+				return null;//No such product
+			}
+		}catch(SQLException e){
+			System.err.println("Could send request to database: SQLException");
+			e.printStackTrace(System.err);
+			return null;
+		}catch(ClassNotFoundException e){
+			System.err.println("Could not find a suitable driver to connect to the database: ");
+			e.printStackTrace(System.err);
+			return null;
+		}
+	}
+	
 	private static void printCartToConsole(Cart cart){
 		System.out.println("prodId,  name,   price,   quantity");
 		for(CartItem item : cart){
 			System.out.println("" + item.productid + ",  " + item.name + ",  " + item.price.toString() + ",  " + item.quantity);
 		}
+	}
+	
+	public static void main(String[] args){
+		System.out.println(getCartItemFor(1,6));
 	}
 	
 }

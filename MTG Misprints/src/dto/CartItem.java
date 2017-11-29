@@ -27,4 +27,13 @@ public class CartItem {
 		this.quantity = quantity;
 		
 	}
+	
+	public String toString(){
+		StringBuilder item = new StringBuilder();
+		item.append("Product Id: "+ productid + "\n");
+		item.append("Name: "+ name + "\n");
+		item.append("Price: "+ price + "\n");
+		item.append("quantity: "+ quantity + "\n");
+		return item.toString();
+	}
 }
