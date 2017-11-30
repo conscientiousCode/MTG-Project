@@ -21,6 +21,17 @@ public class CardProduct {
 		this.image = image;
 	}
 	
-	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("cardproductid: " + cardproductid);
+		sb.append("\nmerchantid: " + merchantid);
+		sb.append("\nname: " + name);
+		sb.append("\ndescription: " + description);
+		sb.append("\nprice: " + price);
+		sb.append("\ninventory: " + inventory);
+		sb.append("\nImage Present?: " + (image != null && image.length!= 0));
+		
+		return sb.toString();
+	}
 	
 }

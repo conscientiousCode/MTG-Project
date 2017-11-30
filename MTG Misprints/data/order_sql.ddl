@@ -142,6 +142,17 @@ INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 4, 5, 'fourth description');
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 5, 5, 'fifth description');
 
+INSERT INTO CardAttribute (name, description) VALUES ('Land', 'A card that adds to your mana pool');
+INSERT INTO CardAttribute (name, description) VALUES ('Artifact', 'An artifact: creature or other');
+INSERT INTO CardAttribute (name, description) VALUES ('4-card', 'A miscut that contains 4 other cards');
+
+INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (1,1);
+INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (1,2);
+INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (1,3);
+INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (2,1);
+INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (2,2);
+INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (3,1);
+
 INSERT INTO InCart (cardproductid, custid, quantity) VALUES (1, 1, 1);
 INSERT INTO InCart (cardproductid, custid, quantity) VALUES (2, 1, 2);
 INSERT INTO InCart (cardproductid, custid, quantity) VALUES (3, 1, 3);

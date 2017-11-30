@@ -11,7 +11,7 @@ import dto.CardProduct;
 
 public class Search {
 
-	public static LinkedList<CardProduct> getCardsWithAttributes(String searchString, int[] attributes){
+	public static LinkedList<CardProduct> getSearchResults(String searchString, int[] attributes){
 		LinkedList<CardProduct> cards = filterCardsByAttributes(attributes);
 		if(searchString == null || searchString.length() == 0){
 			return cards;
@@ -75,7 +75,9 @@ public class Search {
 					}
 					
 					attributeId = rs.getInt("cardattributeid");
-					if(attributeId > attributes[attributeIndex]){
+					if(attributeIndex == attributes.length){
+						continue;
+					}else if(attributeId > attributes[attributeIndex]){
 						//Since attributes are sequenced, if the rs jumps ahead, it is missing the one we need
 						//We will keep hitting this until we get to the next cardId
 						continue;
@@ -90,7 +92,9 @@ public class Search {
 				
 				
 			}catch(SQLException e){
+				e.printStackTrace(System.err);
 			}catch(ClassNotFoundException e){
+				e.printStackTrace(System.err);
 			}
 		}else{//Anycard could be the one we are looking for
 			candidateCards = "SELECT * FROM CardProduct ORDER BY cardproductid ASC";
@@ -102,9 +106,9 @@ public class Search {
 					cards.add(getCard(rs));
 				}
 			}catch(SQLException e){
-				
+				e.printStackTrace(System.err);
 			}catch(ClassNotFoundException e){
-				
+				e.printStackTrace(System.err);
 			}
 		}
 		return cards;
@@ -118,6 +122,14 @@ public class Search {
 		}
 		
 		return words.toArray(new String[0]);
+	}
+	
+	public static void main(String[] args){
+		int[] attributes = {1,2,3};
+		LinkedList<CardProduct> cards = getSearchResults("description", attributes);
+		for(CardProduct card : cards){
+			System.out.println(card);
+		}
 	}
 
 	
