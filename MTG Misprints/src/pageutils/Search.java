@@ -11,6 +11,12 @@ import dto.CardProduct;
 
 public class Search {
 
+	/**
+	 * 
+	 * @param searchString The search string the user inputs, it will check the description and name for each search term delimited by a space
+	 * @param attributes The ids of the attributes to filter on.
+	 * @return A LinkedList containing every cardproduct matching all criteria.
+	 */
 	public static LinkedList<CardProduct> getSearchResults(String searchString, int[] attributes){
 		LinkedList<CardProduct> cards = filterCardsByAttributes(attributes);
 		if(searchString == null || searchString.length() == 0){
@@ -33,26 +39,9 @@ public class Search {
 		return cards;
 	}
 	
-	//Returns the current row as a card, assuming the rs contains rows we care about
-	public static CardProduct getCard(ResultSet rs) throws SQLException{
-		int cardproductid, merchantid;
-		String name, description;
-		BigDecimal price;
-		int inventory;
-		byte[] image;
-		
-		cardproductid = rs.getInt("cardproductid");
-		merchantid = rs.getInt("merchantid");
-		name = rs.getString("name");
-		description = rs.getString("description");
-		price = rs.getBigDecimal("price");
-		inventory = rs.getInt("inventory");
-		image = rs.getBytes("image");
-		
-		return new CardProduct(cardproductid, merchantid, name, description, price, inventory, image);
-	}
 	
-	public static LinkedList<CardProduct> filterCardsByAttributes(int[] attributes){
+	
+	private static LinkedList<CardProduct> filterCardsByAttributes(int[] attributes){
 		LinkedList<CardProduct> cards = new LinkedList<CardProduct>();
 		String candidateCards;
 		ResultSet rs = null;
@@ -85,7 +74,7 @@ public class Search {
 						continue;//We are yet to reach a cardattribute we care about
 					}else{//equivalent
 						if((++attributeIndex) == attributes.length){//Then every attribute that we require has been present
-							cards.add(getCard(rs));
+							cards.add(CardProduct.getCard(rs));
 						}
 					}
 				}
@@ -103,7 +92,7 @@ public class Search {
 				rs = pstmt.executeQuery();
 				
 				while(rs.next()){
-					cards.add(getCard(rs));
+					cards.add(CardProduct.getCard(rs));
 				}
 			}catch(SQLException e){
 				e.printStackTrace(System.err);
@@ -114,21 +103,28 @@ public class Search {
 		return cards;
 	}
 	
-	public static String[] parseSearchString(String searchString){
+	private static String[] parseSearchString(String searchString){
 		Scanner scanner = new Scanner(searchString);
 		ArrayList<String> words = new ArrayList<String>();
 		while(scanner.hasNext()){
-			words.add(scanner.next());
+			String s = scanner.next();
+			if(s != null){
+				s = s.trim();
+				if(s.length() > 0){
+					words.add(s);
+				}
+			}
+			
 		}
 		
 		return words.toArray(new String[0]);
 	}
 	
 	public static void main(String[] args){
-		int[] attributes = {1,2,3};
-		LinkedList<CardProduct> cards = getSearchResults("description", attributes);
+		int[] attributes = {};
+		LinkedList<CardProduct> cards = getSearchResults("th", attributes);
 		for(CardProduct card : cards){
-			System.out.println(card);
+			System.out.println(card + "\n");
 		}
 	}
 

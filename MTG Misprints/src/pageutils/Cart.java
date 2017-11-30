@@ -17,6 +17,10 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 		this.user = user;
 	}
 	
+	public User getUser(){
+		return user;
+	}
+	
 	public Cart[] toArray(){
 		return super.toArray(new Cart[0]);
 	}
@@ -46,7 +50,9 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 	}
 	@Override
 	public void valueUnbound(HttpSessionBindingEvent arg0) {
-		writeCartToDatabase(user, this);
+		if(user != null && user.userGroup == User.GROUP_CUSTOMER){
+			writeCartToDatabase(user, this);
+		}
 	}
 	
 	

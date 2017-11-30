@@ -2,6 +2,8 @@ package dto;
 
 import java.awt.Image;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CardProduct {
 
@@ -34,4 +36,21 @@ public class CardProduct {
 		return sb.toString();
 	}
 	
+	public static CardProduct getCard(ResultSet rs) throws SQLException{
+		int cardproductid, merchantid;
+		String name, description;
+		BigDecimal price;
+		int inventory;
+		byte[] image;
+		
+		cardproductid = rs.getInt("cardproductid");
+		merchantid = rs.getInt("merchantid");
+		name = rs.getString("name");
+		description = rs.getString("description");
+		price = rs.getBigDecimal("price");
+		inventory = rs.getInt("inventory");
+		image = rs.getBytes("image");
+		
+		return new CardProduct(cardproductid, merchantid, name, description, price, inventory, image);
+	}
 }
