@@ -59,6 +59,9 @@ public class Header {
 				+ "					<input type=\"password\" name=\"password\" placeholder=\"Password\" required><br>"
 				+ "					<input type=\"submit\" value=\"Login\">"
 				+ "				</form>"
+				+ "				<form method=get action=recoverpassword.jsp>"
+				+ "					<input type=\"submit\" value=\"Forgot Password\">"
+				+ "				</form>"
 				+ "			</td>");
 	}
 	

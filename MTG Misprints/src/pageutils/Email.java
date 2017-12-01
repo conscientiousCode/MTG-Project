@@ -15,8 +15,11 @@ public class Email {
 	private static final String USERNAME = "UBCOCOSC304Customer1@gmail.com";
 	private static final String PASSWORD = "agreatpassword";
 	
-	public static boolean sendResetAccountEmail(String userEmail){
+	public static boolean sendPasswordRecoveryEmail(String userEmail){
 			//Check email user sent is in the database
+			if(userEmail == null || userEmail.length() ==0){
+				return false; 
+			}
 			userEmail = userEmail.trim();
 			if(!emailInDatabase(userEmail)){
 				return false;
@@ -113,6 +116,6 @@ public class Email {
 	public static void main(String[] args){
 		System.out.println(emailInDatabase("UBCOCOSC304Customer1@gmail.com"));
 		System.out.println(getPasswordForUser("UBCOCOSC304Customer1@gmail.com"));
-		System.out.println(sendResetAccountEmail("UBCOCOSC304Customer1@gmail.com"));
+		System.out.println(sendPasswordRecoveryEmail("UBCOCOSC304Customer1@gmail.com"));
 	}
 }
