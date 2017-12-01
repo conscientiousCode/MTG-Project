@@ -108,8 +108,8 @@
 					out.print(rs.getInt(2));
 					out.print("\"><img src=");
 					// TODO: image from database
-					out.print("\"res/cardnoimage.png\"");
-					out.println("style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
+					out.print(CommonSQL.getImageSourceForProduct(rs.getInt("cardproductid")));
+					out.println(" style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
 					out.println("</td>");
 					out.println("<td style=\"vertical-align:top;\">");
 					out.print("<a href=\"product.jsp?id=");
@@ -157,7 +157,7 @@
 					out.print(rs.getInt(2));
 					out.print("\"><img src=");
 					// TODO: image from database
-					out.print("\"res/cardnoimage.png\"");
+					out.print(CommonSQL.getImageSourceForProduct(rs.getInt("cardproductid")));
 					out.println("style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
 					out.println("</td>");
 					out.println("<td style=\"vertical-align:top;\">");

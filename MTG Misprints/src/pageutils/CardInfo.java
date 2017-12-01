@@ -27,10 +27,10 @@ public class CardInfo {
 			result.append("<a href=\"product.jsp?id=");
 			result.append(rs.getInt(1));
 			result.append("\">");
-			result.append("<img src=\"res/");
+			result.append("<img src=");
 			// TODO: images via sql
-			result.append("cardnoimage.png");
-			result.append("\" style=\"max-width:150px; max-height:150px; display: block; margin:auto;\">");
+			result.append(CommonSQL.getImageSourceForProduct(rs.getInt("cardproductid")));
+			result.append(" style=\"max-width:150px; max-height:150px; display: block; margin:auto;\">");
 			result.append("</a>");
 			result.append("</td>");
 			
