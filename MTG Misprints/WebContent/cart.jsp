@@ -59,7 +59,7 @@
 %>
 
 	<form method=post action=placeorder.jsp>
-		<input type="submit" value="Complete Order">
+		<input type="submit" value="Place Order">
 	</form>
 	
 	<%
