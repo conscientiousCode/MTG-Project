@@ -60,6 +60,7 @@
 					out.print(rs.getString(1));
 					out.println("<br>");
 				}
+				con.close();
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}

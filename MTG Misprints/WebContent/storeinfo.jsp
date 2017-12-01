@@ -46,6 +46,7 @@
 					out.print(rs.getString(2));
 					out.println("</td></tr>");
 				}
+				con.close();
 			} catch(SQLException e) {
 				out.println(e);
 				e.printStackTrace();

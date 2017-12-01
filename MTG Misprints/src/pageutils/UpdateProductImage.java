@@ -58,10 +58,11 @@ public class UpdateProductImage extends HttpServlet{
 	        String description = request.getParameter("description");
 	        
 	        String message = null;
+	        int cardproductid = 0;
 	        
 	        String sql = "INSERT INTO CardProduct (merchantid, name, price, inventory, description, image) VALUES (?,?,?,?,?,?)";
 	        try (Connection con = CommonSQL.getDBConnection();
-	        		PreparedStatement pstmt = con.prepareStatement(sql)){
+	        		PreparedStatement pstmt = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
 	        	
 	        	pstmt.setInt(1, merchantid);
 	        	pstmt.setString(2, name);
@@ -79,13 +80,36 @@ public class UpdateProductImage extends HttpServlet{
 	            if (row > 0) {
 	                message = "File uploaded and saved into database";
 	            }
+	            ResultSet keys = pstmt.getGeneratedKeys();
+	            keys.next();
+	            cardproductid = keys.getInt(1);
 	        } catch (SQLException ex) {
 	            message = "ERROR: " + ex.getMessage();
 	            ex.printStackTrace();
 	        } catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
+			}
+	        
+	        try {
+	        	Connection con = CommonSQL.getDBConnection();
+	        	PreparedStatement ps1 = con.prepareStatement("SELECT name, cardattributeid FROM CardAttribute");
+	        	PreparedStatement ps2 = con.prepareStatement("INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (?, ?);");
+	        	ps1.execute();
+	        	ResultSet rs1 = ps1.getResultSet();
+	        	while(rs1.next()) {
+	        		if(request.getParameter(rs1.getString(1)) != null) {
+	        			ps2.setInt(1, cardproductid);
+	        			ps2.setInt(2, rs1.getInt(2));
+	        			ps2.execute();
+	        		}
+	        	}
+	        	con.close();
+	        } catch(SQLException e) {
+	        	e.printStackTrace();
+	        } catch(ClassNotFoundException e) {
+	        	e.printStackTrace();
+	        }
 	        
 	        response.sendRedirect("storeinfo.jsp");
 	        

@@ -15,6 +15,7 @@
 		if(rs.next()) {
 			name = rs.getString(1);
 		}
+		con.close();
 	} catch(SQLException e) {
 		e.printStackTrace();
 	}
@@ -47,10 +48,9 @@
 					out.println("<td style=\"width:150px; vertical-align:top;\">");
 					out.print("<a href=\"product.jsp?id=");
 					out.print(id);
-					//TODO: image
-					out.print("\"><img src=\"res/");
-					out.print("cardnoimage.png\"");
-					out.println("style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
+					out.print("\"><img src=");
+					out.print(CommonSQL.getImageSourceForProduct(id));
+					out.println(" style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
 					out.println("</td>");
 					out.println("<td style=\"vertical-align:top;\">");
 					out.print("<b>Name: </b>");
@@ -82,10 +82,9 @@
 						out.println("<td style=\"width:150px; vertical-align:top;\">");
 						out.print("<a href=\"product.jsp?id=");
 						out.print(id);
-						//TODO: image
-						out.print("\"><img src=\"res/");
-						out.print("cardnoimage.png\"");
-						out.println("style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
+						out.print("\"><img src=");
+						out.print(CommonSQL.getImageSourceForProduct(id));
+						out.println(" style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
 						out.println("</td>");
 						out.println("<td style=\"vertical-align:top;\">");
 						out.print("<b>Name: </b>");
@@ -100,6 +99,7 @@
 						out.println(rs2.getString(6));
 					}
 				}
+				con.close();
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}
