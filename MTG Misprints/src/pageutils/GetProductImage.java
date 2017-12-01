@@ -27,14 +27,16 @@ public class GetProductImage extends HttpServlet{
 			if(rs.next()){
 				String testLength = rs.getString("image");
 				if(testLength == null){
-					System.out.println("Not sure if this is going to cause problems, using this as a marker");
-					return;
 				}
 				byte[] image = new byte[testLength.length()];
 				InputStream imageInput = rs.getBinaryStream("image");
 				imageInput.read(image, 0, image.length);
+				
+				response.setContentType("image/jpeg");
+				response.setContentLength(image.length);
 				response.getOutputStream().write(image);
 				
+				request.setAttribute("image", image);
 			}else{//No cardproduct found.
 				System.out.println("Using as a nother marker");
 				return;

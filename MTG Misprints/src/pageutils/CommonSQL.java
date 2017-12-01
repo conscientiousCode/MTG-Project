@@ -11,4 +11,29 @@ public class CommonSQL {
 		Class.forName("com.mysql.jdbc.Driver");
 		return DriverManager.getConnection(url,uid,pw);
 	}
+	
+	public static String getImageSourceForProduct(int id){
+		String sql = "Select image FROM CardProduct WHERE cardproductid = ?";
+		
+		try(Connection con = getDBConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next() && rs.getBlob("image") != null){
+				return "downloadServlet?cardproductid=" + id;
+			}else{
+				return "res/cardnoimage.png";
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "res/cardnoimage.png";
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "res/cardnoimage.png";
+		}
+	}
 }
