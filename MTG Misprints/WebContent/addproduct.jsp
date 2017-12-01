@@ -21,7 +21,7 @@
 	
 	<h1>Add Product</h1>
 	
-	<form method=post action=UpdateProductImage>
+
 	<form method=post action=uploadServlet enctype="multipart/form-data">
 		<table>
 			<tr>
