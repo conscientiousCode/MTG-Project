@@ -2,10 +2,22 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="pageutils.*" %>
 <%@ page import="dto.*" %>
+
 <html>
 <head>
 	<title>Store Info</title>
 </head>
+
+<%
+	if(session.getAttribute("user") == null) {
+		response.sendRedirect("home.jsp");
+		return;
+	} else if(((User) session.getAttribute("user")).userGroup != User.GROUP_MERCHANT) {
+		response.sendRedirect("accessdenied.jsp");
+		return;
+	}
+%>
+
 <body>
 	
 	<!-- WEBPAGE HEADER -->
@@ -23,8 +35,6 @@
 				Connection con = CommonSQL.getDBConnection();
 				PreparedStatement ps = con.prepareStatement("SELECT merchantname, email FROM Merchant JOIN SiteUser ON Merchant.suid = SiteUser.suid AND Merchant.suid=?;");
 				User user = (User) session.getAttribute("user");
-				//TODO: Redirect to error
-				if(user.userGroup != User.GROUP_MERCHANT) return;
 				ps.setInt(1, user.suid);
 				ps.execute();
 				ResultSet rs = ps.getResultSet();
@@ -55,8 +65,6 @@
 				Connection con = CommonSQL.getDBConnection();
 				PreparedStatement ps = con.prepareStatement("SELECT cardproductid, image, name, price, inventory, description FROM CardProduct WHERE merchantid=?;");
 				User user = (User) session.getAttribute("user");
-				//TODO: Redirect to error
-				if(user.userGroup != User.GROUP_MERCHANT) return;
 				ps.setInt(1, user.suid);
 				ps.execute();
 				out.println(CardInfo.getCardInfo(ps.getResultSet(), CardInfo.NAME, CardInfo.PRICE, CardInfo.INV, CardInfo.DESC));
@@ -80,8 +88,6 @@
 				Connection con = CommonSQL.getDBConnection();
 				PreparedStatement ps1 = con.prepareStatement("SELECT InOrder.productorderid, InOrder.cardproductid, image, orderdate, name, quantity, description FROM InOrder, ProductOrder, CardProduct WHERE InOrder.productorderid=ProductOrder.productorderid AND InOrder.cardproductid=CardProduct.cardproductid AND merchantid=? AND shipdate IS NULL ORDER BY productorderid;");
 				User user = (User) session.getAttribute("user");
-				//TODO: Redirect to error
-				if(user.userGroup != User.GROUP_MERCHANT) return;
 				ps1.setInt(1, user.suid);
 				ps1.execute();
 				ResultSet rs = ps1.getResultSet();
@@ -131,8 +137,6 @@
 				Connection con = CommonSQL.getDBConnection();
 				PreparedStatement ps1 = con.prepareStatement("SELECT InOrder.productorderid, InOrder.cardproductid, image, shipdate, name, quantity, description FROM InOrder, ProductOrder, CardProduct WHERE InOrder.productorderid=ProductOrder.productorderid AND InOrder.cardproductid=CardProduct.cardproductid AND merchantid=? AND shipdate IS NOT NULL ORDER BY productorderid;");
 				User user = (User) session.getAttribute("user");
-				//TODO: Redirect to error
-				if(user.userGroup != User.GROUP_MERCHANT) return;
 				ps1.setInt(1, user.suid);
 				ps1.execute();
 				ResultSet rs = ps1.getResultSet();
