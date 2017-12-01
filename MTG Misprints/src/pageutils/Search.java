@@ -74,7 +74,10 @@ public class Search {
 						continue;//We are yet to reach a cardattribute we care about
 					}else{//equivalent
 						if((++attributeIndex) == attributes.length){//Then every attribute that we require has been present
-							cards.add(CardProduct.getCard(rs));
+							currentCard = CardProduct.getCard(rs);
+							if(currentCard.inventory > 0){
+								cards.add(currentCard);
+							}
 						}
 					}
 				}
@@ -92,7 +95,10 @@ public class Search {
 				rs = pstmt.executeQuery();
 				
 				while(rs.next()){
-					cards.add(CardProduct.getCard(rs));
+					CardProduct card = CardProduct.getCard(rs);
+					if(card.inventory> 0){
+						cards.add(card);
+					}
 				}
 			}catch(SQLException e){
 				e.printStackTrace(System.err);
@@ -121,8 +127,8 @@ public class Search {
 	}
 	
 	public static void main(String[] args){
-		int[] attributes = {};
-		LinkedList<CardProduct> cards = getSearchResults("th", attributes);
+		int[] attributes = {1};
+		LinkedList<CardProduct> cards = getSearchResults("", attributes);
 		for(CardProduct card : cards){
 			System.out.println(card + "\n");
 		}
