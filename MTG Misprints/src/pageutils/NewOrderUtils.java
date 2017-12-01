@@ -69,7 +69,7 @@ public class NewOrderUtils {
 					newQuantity = item.quantity;
 				}
 				
-				validCart.add(new CartItem(item.productid, item.name, newPrice, newQuantity));
+				validCart.add(new CartItem(item.productid, item.name, newPrice, newQuantity, ""));
 				
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
