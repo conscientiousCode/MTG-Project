@@ -13,10 +13,17 @@
 	
 <%
 	out.println(Header.getHeader((User)session.getAttribute("user")));
+	
+	int[] attributes = ParseSearchRequest.getAttributes(request);
+	String querry = request.getParameter("querry");
+	
+	out.println("<table>");
+	out.println(CardInfo.getCardInfo(Search.getSearchResults(querry, attributes)));
+	out.println("<table>");
+	
+	
 %>
-			
-		</tr>
-	</table>
+	
 	
 	<!-- WEBPAGE CONTENT -->
 	<!-- TODO: fetch sample products via sql -->
