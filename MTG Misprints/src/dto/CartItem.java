@@ -17,8 +17,8 @@ public class CartItem {
 		if(price.compareTo(BigDecimal.ZERO) < 0){//negative price
 			throw new IllegalArgumentException("No product should have a negative price");
 		}
-		if(quantity < 1){
-			throw new IllegalArgumentException("Given quantity less than 1, you cannot have less than one object in your cart.");
+		if(quantity < 0){
+			throw new IllegalArgumentException("Given quantity less than 0; you cannot have less than 0 objects in your cart.");
 		}
 		
 		this.productid = productid;

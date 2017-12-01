@@ -9,13 +9,51 @@
 </head>
 <body>
 <%
-
-	out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));	
-
+	
+	User user = (User) session.getAttribute("user");
 	Cart cart = (Cart) session.getAttribute("cart");
+	for(int i = 0; i < cart.size(); i++) {
+		CartItem item = cart.get(i);
+		String q = request.getParameter(item.productid + "quantity");
+		if(q != null) {
+			CartItem modified = Cart.getCartItemFor(item.productid, Integer.parseInt(q));
+			if(modified == null)
+				cart.removeItem(item);
+			else
+				cart.setCartItemQuantity(modified);
+		}
+	}
+	
+	out.println(Header.getHeader(user, (Cart)session.getAttribute("cart")));	
+	
 	if(cart == null || cart.size() == 0) {
 		out.println("<h2>Your cart is empty</h2></body></html>");
 		return;
+	}
+	
+	for(CartItem item : cart) {
+		String q = request.getParameter(item.productid + "quantity");
+		if(q != null) {
+			cart.setCartItemQuantity(Cart.getCartItemFor(item.productid, Integer.parseInt(q)));
+		}
+	}
+	
+	try {
+		Connection con = CommonSQL.getDBConnection();
+		PreparedStatement ps = con.prepareStatement("SELECT cardproductid FROM InCart WHERE custid=?");
+		ps.setInt(1, user.suid);
+		ps.execute();
+		ResultSet rs = ps.getResultSet();
+		while(rs.next()) {
+			String q = request.getParameter(rs.getInt(1) + "quantity");
+			if(q != null) {
+				System.out.println(Integer.parseInt(q));
+				cart.setCartItemQuantity(Cart.getCartItemFor(rs.getInt(1), Integer.parseInt(q)));
+			}
+		}
+		con.close();
+	} catch(SQLException e) {
+		e.printStackTrace();
 	}
 	
 %>
@@ -43,26 +81,35 @@
 				out.print("\"><b>");
 				out.print(item.name);
 				out.println("</b></a><br>");
-				out.print("<b>Total Price: </b>$");
-				out.print(item.price.multiply(new BigDecimal(item.quantity)));
-				out.println("<br>");
 				out.println("<form method=post action=cart.jsp>");
 				out.println("<b>Quantity</b>");
-				out.println("<select name=\"quantity\">");
+				out.print("<select name=\"");
+				out.print(item.productid);
+				out.print("quantity\"");
+				out.print(item.quantity);
+				out.print(">");
 				ps.setInt(1, item.productid);
 				ps.execute();
 				ResultSet rs = ps.getResultSet();
 				if(rs.next()) {
 					int max = rs.getInt(1);
-					for(int i = 1; i <= max; i++) {
+					for(int i = 0; i <= max; i++) {
 						out.print("<option value=");
 						out.print(i);
+						if(item.quantity == i) {
+							out.print(" selected=\"selected\"");
+						}
 						out.print(">");
 						out.print(i);
 						out.println("</option>");
 					}
 				}
-				out.println("</select></form><br>");
+				out.println("</select>");
+				out.println("<input type=\"submit\" value=\"Update\"</input>");
+				out.println("</form>");
+				out.print("<b>Total Price: </b>$");
+				out.print(item.price.multiply(new BigDecimal(item.quantity)));
+				out.println("<br>");
 				out.println(item.description);
 				out.println("</td></tr>");
 			}

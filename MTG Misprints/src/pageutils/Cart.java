@@ -47,6 +47,21 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 		total = total.add(new BigDecimal(item.quantity).multiply(item.price));
 	}
 	
+	public void setCartItemQuantity(CartItem item) {
+		for(int i = 0; i < this.size(); i++) {
+			CartItem inCart = this.get(i);
+			if(inCart.productid == item.productid) {
+				total = total.subtract(new BigDecimal(inCart.quantity).multiply(item.price));
+				inCart.quantity = item.quantity;
+			}
+		}
+		total = total.add(new BigDecimal(item.quantity).multiply(item.price));
+	}
+	
+	public void removeItem(CartItem item) {
+		total = total.subtract(new BigDecimal(item.quantity).multiply(item.price));
+		this.remove(item);
+	}
 	
 	@Override
 	public void valueBound(HttpSessionBindingEvent arg0) {
@@ -196,8 +211,11 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 	 */
 	public static CartItem getCartItemFor(int cardproductid, int quantityRequested){
 		
-		String getCard = "SELECT cardproductid, name, price, inventory, description FROM CardProduct WHERE cardproductid = ?";
+		if(quantityRequested == 0) {
+			return null;
+		}
 		
+		String getCard = "SELECT cardproductid, name, price, inventory, description FROM CardProduct WHERE cardproductid = ?";
 		
 		try(Connection con = CommonSQL.getDBConnection()){
 			PreparedStatement pstmt = con.prepareStatement(getCard);
