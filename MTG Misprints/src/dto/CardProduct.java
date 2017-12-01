@@ -43,7 +43,7 @@ public class CardProduct {
 		int inventory;
 		byte[] image;
 		
-		rs.next();
+		
 		cardproductid = rs.getInt("cardproductid");
 		merchantid = rs.getInt("merchantid");
 		name = rs.getString("name");
