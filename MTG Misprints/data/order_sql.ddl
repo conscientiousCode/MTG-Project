@@ -167,6 +167,7 @@ INSERT INTO CardAttribute (name) VALUES ('Signed');
 INSERT INTO CardAttribute (name) VALUES ('Damaged');
 INSERT INTO CardAttribute (name) VALUES ('Foil');
 INSERT INTO CardAttribute (name) VALUES ('Altered');
+INSERT INTO CardAttribute (name) VALUES ('Playtest');
 
 INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (1,1);
 INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (1,2);

@@ -45,26 +45,6 @@
 				<td><input type="file" name="image" accept=".jpg"></td>
 			</tr>
 		</table>
-		<b>Tags:</b><br>
-		
-		<%
-			try {
-				Connection con = CommonSQL.getDBConnection();
-				PreparedStatement ps = con.prepareStatement("SELECT name FROM CardAttribute ORDER BY cardattributeid;");
-				ps.execute();
-				ResultSet rs = ps.getResultSet();
-				while(rs.next()) {
-					out.print("<input type=\"checkbox\" name=");
-					out.print(rs.getString(1));
-					out.print(">");
-					out.print(rs.getString(1));
-					out.println("<br>");
-				}
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-		%>
-		
 		<input type="hidden" name="merchantid" value=<%out.print("\""+user.suid+"\"");%>>
 		<input type="submit" value="Submit">
 	</form>
