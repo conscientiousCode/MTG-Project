@@ -8,9 +8,9 @@ public class CartItem {
 	public final BigDecimal price;
 	//Add image data here later, set to null in the more basic constructor.
 	public int quantity;
+	public String description;
 	
-	
-	public CartItem(int productid, String name, BigDecimal price, int quantity){
+	public CartItem(int productid, String name, BigDecimal price, int quantity, String description){
 		if(productid < 1){
 			throw new IllegalArgumentException("productid passed in is less than 1 and thus has no entry in the database");
 		}
@@ -25,6 +25,7 @@ public class CartItem {
 		this.name = (name == null)?(""):(name);
 		this.price = price;
 		this.quantity = quantity;
+		this.description = description;
 		
 	}
 	

@@ -65,12 +65,13 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 		if(user == null){
 			return null;
 		}
-		String getQuantities = "SELECT DISTINCT CardProduct.cardproductid, name, price, quantity "
+		String getQuantities = "SELECT DISTINCT CardProduct.cardproductid, name, price, quantity, description "
 				+ " FROM CardProduct, (SELECT quantity, cardproductid FROM Customer, InCart WHERE InCart.custid = ?) as A "
 				+ " WHERE A.cardproductid = CardProduct.cardproductid";
 		
-		try(Connection con = CommonSQL.getDBConnection()){
-			PreparedStatement pstmt = con.prepareStatement(getQuantities);
+		try(Connection con = CommonSQL.getDBConnection();
+				PreparedStatement pstmt = con.prepareStatement(getQuantities);){
+			System.out.println("reached");
 			pstmt.setInt(1, user.suid);
 			ResultSet rs = pstmt.executeQuery();
 			Cart cart = new Cart(user);
@@ -78,14 +79,15 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 			String name;
 			BigDecimal price;
 			int quantity;
+			String description;
 			
 			while(rs.next()){
 				prodId = rs.getInt("cardproductid");
 				name = rs.getString("name");
 				price = rs.getBigDecimal("price");
 				quantity = rs.getInt("quantity");
-				
-				cart.add(new CartItem(prodId, name, price, quantity));
+				description = rs.getString("description");
+				cart.add(new CartItem(prodId, name, price, quantity, description));
 			}
 			pstmt.close();
 			return cart;
@@ -189,7 +191,7 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 	 */
 	public static CartItem getCartItemFor(int cardproductid, int quantityRequested){
 		
-		String getCard = "SELECT cardproductid, name, price, inventory FROM CardProduct WHERE cardproductid = ?";
+		String getCard = "SELECT cardproductid, name, price, inventory, description FROM CardProduct WHERE cardproductid = ?";
 		
 		
 		try(Connection con = CommonSQL.getDBConnection()){
@@ -200,15 +202,17 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 			String name;
 			BigDecimal price;
 			int inventory, quantityGiven;
+			String description;
 			
 			if(rs.next()){
 				inventory = rs.getInt("inventory");
 				quantityGiven = (inventory > quantityRequested)?(quantityRequested):(inventory);
 				name = rs.getString("name");
 				price = rs.getBigDecimal("price");
+				description = rs.getString("description");
 				
 				pstmt.close();
-				return new CartItem(cardproductid, name, price, quantityGiven);
+				return new CartItem(cardproductid, name, price, quantityGiven, description);
 			}else{
 				pstmt.close();
 				return null;//No such product
