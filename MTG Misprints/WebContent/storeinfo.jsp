@@ -16,6 +16,20 @@
 		response.sendRedirect("accessdenied.jsp");
 		return;
 	}
+	String shipid = request.getParameter("id");
+	System.out.println("test" + shipid);
+	if(shipid != null) {
+		try {
+			Connection con = CommonSQL.getDBConnection();
+			PreparedStatement ps = con.prepareStatement("UPDATE ProductOrder SET shipdate=? WHERE productorderid=?");
+			ps.setDate(1, new Date(System.currentTimeMillis()));
+			ps.setInt(2, Integer.parseInt(shipid));
+			ps.execute();
+			con.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 %>
 
 <body>
@@ -97,10 +111,13 @@
 					if(rs.getInt(1) != id) {
 						id = rs.getInt(1);
 						out.println("<tr><td colspan=2>");
-						out.println("<form method=get action=storeinfo.jsp>");
+						out.print("<form method=post action=storeinfo.jsp>");
 						out.print("<h3>Ordered On: ");
 						out.print(rs.getString(4));
 						out.println("<input type=\"submit\" value=\"Mark As Shipped\"></h3>");
+						out.print("<input type=\"hidden\" name=id value=");
+						out.print(id);
+						out.println(">");
 						out.println("</form>");
 						out.println("</td></tr>");
 					}
@@ -146,11 +163,8 @@
 					if(rs.getInt(1) != id) {
 						id = rs.getInt(1);
 						out.println("<tr><td colspan=2>");
-						out.println("<form method=get action=storeinfo.jsp>");
 						out.print("<h3>Shipped On: ");
 						out.print(rs.getString(4));
-						out.println("<input type=\"submit\" value=\"Mark As Shipped\"></h3>");
-						out.println("</form>");
 						out.println("</td></tr>");
 					}
 					out.println("<tr><td style=\"width:150px; vertical-align:top;\">");
