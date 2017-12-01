@@ -17,7 +17,7 @@
 	password = request.getParameter("password");
 	verifypassword = request.getParameter("verifypassword");
 	if(password == null || verifypassword == null || !password.trim().equals(verifypassword.trim()) ){
-		response.sendRedirect("customersignup?formentryerror=passwordmismatch");
+		response.sendRedirect("customersignup.jsp?formentryerror=passwordmismatch");
 		return;
 	}else{
 		firstName = request.getParameter("firstname");
@@ -28,13 +28,13 @@
 		postalCode = request.getParameter("postalcode");
 		Customer customer = Customer.getNewCustomer(email, password, firstName, lastName, address, city, province, postalCode);
 		if(customer == null){
-			response.sendRedirect("customersignup?formentryerror=customercreationfailed");
+			response.sendRedirect("customersignup.jsp?formentryerror=customercreationfailed");
 			return;
 		}else{
 			if(Customer.insertNewCustomer(customer)){
 				response.sendRedirect("login.jsp?username="+customer.email+"&password="+customer.password);
 			}else{
-				response.sendRedirect("customersignup?formentryerror=customerinsertion");
+				response.sendRedirect("customersignup.jsp?formentryerror=customerinsertion");
 			}
 		}
 	}
