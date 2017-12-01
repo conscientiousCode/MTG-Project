@@ -31,7 +31,7 @@
 	
 	<!-- WEBPAGE CONTENT -->
 	
-	<h1>CardProduct.cardname</h1>
+	<h1><% out.print(name); %></h1>
 	
 	<table>
 		
@@ -73,6 +73,32 @@
 					} while(rs.next());
 					out.println("<br>");
 					out.println(description);
+				} else {
+					PreparedStatement ps2 = con.prepareStatement("SELECT image, CardProduct.name, price, inventory, merchantname, CardProduct.description FROM CardProduct, Merchant WHERE CardProduct.merchantid=Merchant.suid AND CardProduct.cardproductid=?;");
+					ps2.setInt(1, id);
+					ps2.execute();
+					ResultSet rs2 = ps2.getResultSet();
+					if(rs2.next()) {
+						out.println("<td style=\"width:150px; vertical-align:top;\">");
+						out.print("<a href=\"product.jsp?id=");
+						out.print(id);
+						//TODO: image
+						out.print("\"><img src=\"res/");
+						out.print("cardnoimage.png\"");
+						out.println("style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
+						out.println("</td>");
+						out.println("<td style=\"vertical-align:top;\">");
+						out.print("<b>Name: </b>");
+						out.println(rs2.getString(2));
+						out.print("<br><b>Price: </b>$");
+						out.println(rs2.getString(3));
+						out.print("<br><b>Inventory: </b>");
+						out.println(rs2.getInt(4));
+						out.print("<br><b>Merchant: </b>");
+						out.println(rs2.getString(5));
+						out.println("<br>");
+						out.println(rs2.getString(6));
+					}
 				}
 			} catch(SQLException e) {
 				e.printStackTrace();
