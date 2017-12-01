@@ -9,7 +9,66 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart"))); %>
+<%out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));
+	out.println(request.getParameter("province"));
+	String email, password, verifypassword; 
+	String firstName, lastName, address, city, province, postalCode;
+	email = request.getParameter("email");
+	password = request.getParameter("password");
+	verifypassword = request.getParameter("verifypassword");
+	if(password == null || verifypassword == null || !password.trim().equals(verifypassword.trim()) ){
+		response.sendRedirect("customersignup?formentryerror=passwordmismatch");
+		return;
+	}else{
+		firstName = request.getParameter("firstname");
+		lastName = request.getParameter("lastname");
+		address = request.getParameter("address");
+		city = request.getParameter("city");
+		province = request.getParameter("province");
+		postalCode = request.getParameter("postalcode");
+		Customer customer = Customer.getNewCustomer(email, password, firstName, lastName, address, city, province, postalCode);
+		if(customer == null){
+			response.sendRedirect("customersignup?formentryerror=customercreationfailed");
+			return;
+		}else{
+			if(Customer.insertNewCustomer(customer)){
+				response.sendRedirect("login.jsp?username="+customer.email+"&password="+customer.password);
+			}else{
+				response.sendRedirect("customersignup?formentryerror=customerinsertion");
+			}
+		}
+	}
+%>
+<%out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));
+	out.println(request.getParameter("province"));
+	String email, password, verifypassword; 
+	String firstName, lastName, address, city, province, postalCode;
+	email = request.getParameter("email");
+	password = request.getParameter("password");
+	verifypassword = request.getParameter("verifypassword");
+	if(password == null || verifypassword == null || !password.trim().equals(verifypassword.trim()) ){
+		response.sendRedirect("customersignup?formentryerror=passwordmismatch");
+		return;
+	}else{
+		firstName = request.getParameter("firstname");
+		lastName = request.getParameter("lastname");
+		address = request.getParameter("address");
+		city = request.getParameter("city");
+		province = request.getParameter("province");
+		postalCode = request.getParameter("postalcode");
+		Customer customer = Customer.getNewCustomer(email, password, firstName, lastName, address, city, province, postalCode);
+		if(customer == null){
+			response.sendRedirect("customersignup?formentryerror=customercreationfailed");
+			return;
+		}else{
+			if(Customer.insertNewCustomer(customer)){
+				response.sendRedirect("login.jsp?username="+customer.email+"&password="+customer.password);
+			}else{
+				response.sendRedirect("customersignup?formentryerror=customerinsertion");
+			}
+		}
+	}
+%>
 
 
 </body>
