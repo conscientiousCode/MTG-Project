@@ -36,31 +36,49 @@
 	<table>
 		
 		<tr>
-			<td style="width:150px; vertical-align:top;">
-				<a href="product.jsp?id=1">
-					<img src="res/card1.jpg" style="max-width:150px; max-height:150px; display: block; margin:auto;">
-				</a>
-			</td>
-			
-			<%
-			%>
-			
-			<td style="vertical-align:top;">
-				<b>Name: </b> CardProduct.name
-				<br>
-				<b>Price: </b> CardProduct.price
-				<br>
-				<b>Inventory: </b> CardProduct.inventory
-				<br>
-				<b>Merchant: </b> Merchant.merchantname
-				<br>
-				<b>Tags: </b>
-				<a href="searchresults.jsp?tag=CardAttribute.name">CartAttribute.name</a>, 
-				<a href="searchresults.jsp?tag=CardAttribute.name">CartAttribute.name</a>,
-				<a href="searchresults.jsp?tag=CardAttribute.name">CartAttribute.name</a>
-				<br>
-				CardProduct.description
-			</td>
+		<%
+			try {
+				Connection con = CommonSQL.getDBConnection();
+				PreparedStatement ps1 = con.prepareStatement("SELECT image, CardProduct.name, price, inventory, merchantname, CardAttribute.name, CardProduct.description FROM CardProduct, CardAttribute, HasAttribute, Merchant WHERE CardProduct.merchantid=Merchant.suid AND CardProduct.cardproductid=HasAttribute.cardproductid AND HasAttribute.cardattributeid=CardAttribute.cardattributeid AND CardProduct.cardproductid=?;");
+				ps1.setInt(1, id);
+				ps1.execute();
+				ResultSet rs = ps1.getResultSet();
+				if(rs.next()) {
+					out.println("<td style=\"width:150px; vertical-align:top;\">");
+					out.print("<a href=\"product.jsp?id=");
+					out.print(id);
+					//TODO: image
+					out.print("\"><img src=\"res/");
+					out.print("cardnoimage.png\"");
+					out.println("style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
+					out.println("</td>");
+					out.println("<td style=\"vertical-align:top;\">");
+					out.print("<b>Name: </b>");
+					out.println(rs.getString(2));
+					out.print("<br><b>Price: </b>$");
+					out.println(rs.getString(3));
+					out.print("<br><b>Inventory: </b>");
+					out.println(rs.getInt(4));
+					out.print("<br><b>Merchant: </b>");
+					out.println(rs.getString(5));
+					out.println("<br><b>Tags: </b>");
+					String description = rs.getString(7);
+					do {
+						String attribute = rs.getString(6);
+						out.print("<a href=\"searchresults.jsp?tag=");
+						out.print(attribute);
+						out.print("\">");
+						out.print(attribute);
+						out.println("</a>");
+					} while(rs.next());
+					out.println("<br>");
+					out.println(description);
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			out.println("</td>");
+		%>
 		</tr>
 		
 	</table>
