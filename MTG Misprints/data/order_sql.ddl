@@ -136,11 +136,13 @@ INSERT INTO Customer (custid, firstname, lastname, address, city, province, post
 INSERT INTO Merchant (suid, merchantname) VALUES (10, 'Best Trash Cards');
 
 
+
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card1', 1, 5, 'first description');
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 2, 5, 'second description');
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card3', 3, 5, 'third description');
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card4', 4, 5, 'fourth description');
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card5', 5, 5, 'fifth description');
+INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'cardWithNoStock', 1, 0, 'first description');
 
 INSERT INTO CardAttribute (name, description) VALUES ('Land', 'A card that adds to your mana pool');
 INSERT INTO CardAttribute (name, description) VALUES ('Artifact', 'An artifact: creature or other');

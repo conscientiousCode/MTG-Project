@@ -127,7 +127,7 @@ public class Search {
 	}
 	
 	public static void main(String[] args){
-		int[] attributes = {1};
+		int[] attributes = {};
 		LinkedList<CardProduct> cards = getSearchResults("", attributes);
 		for(CardProduct card : cards){
 			System.out.println(card + "\n");
