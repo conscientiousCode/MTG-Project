@@ -21,7 +21,7 @@
 	
 	<h1>Add Product</h1>
 	
-	<form method=post action=storeinfo.jsp>
+	<form method=post action=UpdateProductImage>
 		<table>
 			<tr>
 				<td><b>Name:</b></td>
