@@ -42,7 +42,7 @@ public class NewOrderUtils {
 	//https://stackoverflow.com/questions/22929237/convert-java-time-localdate-into-java-util-date-type
 	public static boolean creditCardDateValid(java.util.Date cardExpireyDate){
 		//There are too many date time formats in java....
-		java.util.Date today = java.util.Date.from(java.time.LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant());
+		java.util.Date today = new java.util.Date(System.currentTimeMillis());
 		return 0 <= today.compareTo(cardExpireyDate);
 	}
 	

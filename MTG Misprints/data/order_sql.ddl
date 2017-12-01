@@ -39,8 +39,8 @@ CREATE TABLE Customer(
 CREATE TABLE ProductOrder(
 	productorderid INTEGER PRIMARY KEY AUTO_INCREMENT,
 	custid INTEGER,
-	orderdate DATETIME NOT NULL,
-	shipdate DATETIME,
+	orderdate DATE NOT NULL,
+	shipdate DATE,
 	creditcard CHAR(16) NOT NULL,
 	cardexpiry DATE NOT NULL,
 	totalcost DECIMAL(11,2) NOT NULL,
