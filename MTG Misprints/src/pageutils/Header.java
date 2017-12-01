@@ -64,11 +64,16 @@ public class Header {
 	
 	public static void getCustomerLoginData(User user, Cart cart, StringBuilder header){
 		header.append("<td style=\"width:33%; text-align:right;\">"
-				+ "				<a href=\"settings.jsp\"><b>"+ user.name +"</b></a><br><br>"
+				+ "				<a href=\"myorders.jsp\"><b>"+ user.name +"</b></a><br><br>"
 				+ "				<a href=\"cart.jsp\"><b>My Cart</b></a> - Total: $" + cart.total + "<br>"
+				+ "              <table style=\"width:100%; text-align:right;\"><tr><td>"
+				/*+ "				<form method=get action=myorders.jsp>"
+				+ "					<input type=\"submit\" value=\"Order History\">"
+				+ "				</form>"*/
 				+ "				<form method=get action=logout.jsp>"
 				+ "					<input type=\"submit\" value=\"Logout\">"
-				+ "				</form>");
+				+ "				</form>"
+				+ "             </td></tr></table>");
 	}
 	
 	public static void getMerchantLoginData(User user, StringBuilder header){

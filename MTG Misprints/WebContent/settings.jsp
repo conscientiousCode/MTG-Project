@@ -21,6 +21,12 @@
 	
 	<%
 		String email = "";
+		String firstName = "";
+		String lastName = "";
+		String address = "";
+		String city = "";
+		String province = "";
+		String postalCode = "";
 		try(Connection con = CommonSQL.getDBConnection();
 			PreparedStatement pstmt = con.prepareStatement("SELECT SiteUser.*, Customer.* FROM SiteUser, Customer WHERE custid = ?")){
 			User user = (User)session.getAttribute("user");
@@ -32,6 +38,12 @@
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()){
 				email = rs.getString("email");
+				firstName = rs.getString("firstname");
+				lastName = rs.getString("lastname");
+				address = rs.getString("address");
+				city = rs.getString("city");
+				province = rs.getString("province");
+				postalCode = rs.getString("postalcode");
 			}else{
 				out.println("Failed to connect to the database, please try your request again.");
 			}
@@ -60,24 +72,24 @@
 		<table>
 			<tr>
 				<td><b>First Name:</b></td>
-				<td><input type="text" name="firstname" value="Jeff"></td>
+				<td><input type="text" name="firstname" value="<%out.print(firstName);%>"></td>
 			</tr>
 			<tr>
 				<td><b>Last Name:</b></td>
-				<td><input type="text" name="lastname" value="Thomson"></td>
+				<td><input type="text" name="lastname" value="<%out.print(lastName);%>"></td>
 			</tr>
 			<tr>
 				<td><b>Address:</b></td>
-				<td><input type="text" name="address" value="1 Alumni Ave."></td>
+				<td><input type="text" name="address" value="<%out.print(address);%>"></td>
 			</tr>
 			<tr>
 				<td><b>City:</b></td>
-				<td><input type="text" name="city" value="Kelowna"></td>
+				<td><input type="text" name="city" value="<%out.print(city);%>"></td>
 			</tr>
 			<tr>
 				<td><b>Province:</b></td>
 				<td>
-					<select name="province">
+					<select name="province" value="<%out.print(province);%>">
 						
 					<% 
 						for(String prov: Customer.PROVINCES){
@@ -89,7 +101,7 @@
 			</tr>
 			<tr>
 				<td><b>Postal Code:</b></td>
-				<td><input type="text" name="postalcode" value="A1A1A1"></td>
+				<td><input type="text" name="postalcode" value="<%out.print(postalCode);%>"></td>
 			</tr>
 		</table>
 		<input type="submit" value="Update">
@@ -100,16 +112,12 @@
 	<form method=post action=settings.jsp>
 		<table>
 			<tr>
-				<td><b>Old Password:</b></td>
-				<td><input type="text" name="password"></td>
-			</tr>
-			<tr>
 				<td><b>New Password:</b></td>
-				<td><input type="text" name="newpassword1"></td>
+				<td><input type="password" name="newpassword1"></td>
 			</tr>
 			<tr>
 				<td><b>Confirm New Password:</b></td>
-				<td><input type="text" name="newpassword2"></td>
+				<td><input type="password" name="newpassword2"></td>
 			</tr>
 		</table>
 		<input type="submit" value="Update">
