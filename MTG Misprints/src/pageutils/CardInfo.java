@@ -103,13 +103,13 @@ public static String getCardInfo(LinkedList<CardProduct> cards) throws SQLExcept
 			result.append("</td>");
 			
 			result.append("<td style=\"vertical-align:top;\">");
-			result.append("<table>");
 			//NAME
 			result.append("<a href=\"product.jsp?id=");
 			result.append(currentCard.cardproductid);
 			result.append("\"><b>");
 			result.append(currentCard.name);
 			result.append("</b></a>");
+			result.append("<br>");
 			//Merchant
 			//result.append("<b>Merchant: </b>");
 			//TODO fetch merchant from name from sql
@@ -117,13 +117,14 @@ public static String getCardInfo(LinkedList<CardProduct> cards) throws SQLExcept
 			//PRICE
 			result.append("<b>Price: </b>$");
 			result.append(currentCard.price);
+			result.append("<br>");
 			//Inventory
 			result.append("<b>Quantity: </b>");
 			result.append(currentCard.inventory);
+			result.append("<br>");
 			//Attributes
 			//TODO fetch from SQL
 			
-			result.append("</table>");
 			result.append("<br>");
 		}
 			result.append("</td>");
