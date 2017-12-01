@@ -14,7 +14,7 @@
 	if(user == null){
 		response.sendRedirect("RequestLogin.jsp?returnpage=checkout.jsp");
 	}else{
-		out.println(Header.getHeader(user));
+		out.println(Header.getHeader(user, (Cart)session.getAttribute("cart")));
 	}
 	
 	Cart userCart = (Cart)session.getAttribute("cart");

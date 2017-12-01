@@ -10,25 +10,14 @@
 <body>
 <%
 
-	out.println(Header.getHeader((User)session.getAttribute("user")));	
+	out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));	
 
 	Cart cart = (Cart) session.getAttribute("cart");
 	if(cart == null || cart.size() == 0) {
-		out.println("<h2>Your cart is empty</h2>");
+		out.println("<h2>Your cart is empty</h2></body></html>");
 		return;
-	}/* else {
-		out.println("<table style=\"width:100%; padding:10px;\">");
-		for(CartItem item : cart){
-			out.println("<tr>");
-				out.println("<td>" + item.productid + "</td>");
-				out.println("<td>" + item.name + "</td>");
-				out.println("<td>" + item.price.toString() + "</td>");
-				out.println("<td>" + item.quantity + "</td>");
-			out.println("</tr>");
-		}
-		out.println("<table>");
-		
-	}*/
+	}
+	
 %>
 
 	<form method=post action=placeorder.jsp>

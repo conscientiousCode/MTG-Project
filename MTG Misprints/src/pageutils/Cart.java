@@ -12,9 +12,13 @@ import dto.CartItem;
 public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListener{
 	
 	private final User user;
+	
+	public BigDecimal total;
+	
 	public Cart(User user){
 		super();
 		this.user = user;
+		total = BigDecimal.ZERO;
 	}
 	
 	public User getUser(){
@@ -40,6 +44,7 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 		}
 		//else no item in the cart
 		this.add(item);
+		total = total.add(new BigDecimal(item.quantity).multiply(item.price));
 	}
 	
 	
@@ -87,6 +92,7 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 				quantity = rs.getInt("quantity");
 				description = rs.getString("description");
 				cart.add(new CartItem(prodId, name, price, quantity, description));
+				cart.total = cart.total.add(price.multiply(new BigDecimal(quantity)));
 			}
 			pstmt.close();
 			return cart;

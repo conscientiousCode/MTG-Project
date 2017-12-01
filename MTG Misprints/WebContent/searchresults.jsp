@@ -12,7 +12,7 @@
 	<!-- TODO: java for login/logout -->
 	
 <%
-	out.println(Header.getHeader((User)session.getAttribute("user")));
+	out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));
 	
 	int[] attributes = ParseSearchRequest.getAttributes(request);
 	String querry = request.getParameter("querry");

@@ -35,15 +35,13 @@ public class CommonHTML {
 						+ "</form>"
 					+ "</td>"
 					+ "<td style=\"width:33%; text-align:right;\">"
-						+ "<form method=get action=login.jsp>"
+						+ "<form method=post action=login.jsp>"
 							+ "<input type=\"text\" name=\"username\" value=\"Username\"><br>"
 							+ "<input type=\"text\" name=\"password\" value=\"Password\"><br>"
 							+ "<input type=\"submit\" value=\"Login\">"
 						+ "</form>"
 					+ "</td>"
 				+ "</tr>"
-			+ "</table>"
-			+ "<table>"	
 			+ "</table>";
 	}
 	
@@ -80,8 +78,6 @@ public class CommonHTML {
 						+ "</table>"
 					+ "</td>"
 				+ "</tr>"
-			+ "</table>"
-			+ "<table>"	
 			+ "</table>";
 	}
 	
@@ -118,8 +114,6 @@ public class CommonHTML {
 						+ "</table>"
 					+ "</td>"
 				+ "</tr>"
-			+ "</table>"
-			+ "<table>"	
 			+ "</table>";
 	}
 }

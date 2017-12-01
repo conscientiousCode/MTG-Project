@@ -3,7 +3,7 @@ import dto.User;
 
 public class Header {
 	
-	public static String getHeader(User user){
+	public static String getHeader(User user, Cart cart){
 		
 		if(user == null){
 			return getDefaultHeader();
@@ -16,7 +16,7 @@ public class Header {
 
 		switch(user.userGroup){
 		case User.GROUP_CUSTOMER:
-			getCustomerLoginData(user, header);
+			getCustomerLoginData(user, cart, header);
 			break;
 		case User.GROUP_MERCHANT:
 			getMerchantLoginData(user, header);
@@ -62,9 +62,10 @@ public class Header {
 				+ "			</td>");
 	}
 	
-	public static void getCustomerLoginData(User user, StringBuilder header){
+	public static void getCustomerLoginData(User user, Cart cart, StringBuilder header){
 		header.append("<td style=\"width:33%; text-align:right;\">"
 				+ "				<a href=\"settings.jsp\"><b>"+ user.name +"</b></a><br><br>"
+				+ "				<a href=\"cart.jsp\"><b>My Cart</b></a> - Total: $" + cart.total + "<br>"
 				+ "				<form method=get action=logout.jsp>"
 				+ "					<input type=\"submit\" value=\"Logout\">"
 				+ "				</form>");
@@ -72,7 +73,7 @@ public class Header {
 	
 	public static void getMerchantLoginData(User user, StringBuilder header){
 		header.append("<td style=\"width:33%; text-align:right;\">"
-				+ "				<a href=\"storeinfo.jsp\"><b>"+ user.name +"</b></a><br><br>"
+				+ "				<a href=\"storeinfo.jsp\"><b>"+ user.name +"</b></a><br>"
 				+ "				<form method=get action=logout.jsp>"
 				+ "					<input type=\"submit\" value=\"Logout\">"
 				+ "				</form>");

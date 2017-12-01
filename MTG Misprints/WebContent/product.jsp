@@ -28,7 +28,7 @@
 <body>
 	
 	<!-- WEBPAGE HEADER -->
-	<%out.println(Header.getHeader((User)session.getAttribute("user")));%>
+	<%out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));%>
 	
 	<!-- WEBPAGE CONTENT -->
 	

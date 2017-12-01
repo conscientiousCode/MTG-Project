@@ -14,7 +14,8 @@
 		//TODO: redirecto to a page stating they cannot access that portion of the site
 		out.println("If you are seeing this, there is unimplemented functionality");
 	}
-	out.println(Header.getHeader(user));
+	Cart cart = (Cart)session.getAttribute("cart");
+	out.println(Header.getHeader(user, cart));
 %>
 	
 	<!-- WEBPAGE CONTENT -->
