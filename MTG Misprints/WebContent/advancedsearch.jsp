@@ -29,7 +29,7 @@
 				 ResultSet rs = pstmt.executeQuery();
 				 while(rs.next()){
 					 String name = rs.getString("name");
-					 out.println();
+					 out.println("<input type=\"checkbox\" name=\""+ attribute1+">"+ +"<br>");
 				 }
 			}
 		%>
