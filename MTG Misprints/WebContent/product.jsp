@@ -34,6 +34,10 @@
 	
 	<h1><% out.print(name); %></h1>
 	
+	<form method=post action=addtocart.jsp>
+		<input type="submit" value="Submit">
+	</form>
+	
 	<table>
 		
 		<tr>

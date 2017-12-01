@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%out.println(Header.getHeader((User)session.getAttribute("user")), (Cart)session.getAttribute("cart")); %>
+<%out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart"))); %>
 
 
 </body>
