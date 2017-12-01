@@ -4,7 +4,12 @@
 <%@ page import="dto.*" %>
 
 <%
-	int id = Integer.parseInt(request.getParameter("id"));
+	String p = request.getParameter("id");
+	if(p == null) {
+		response.sendRedirect("advancedsearch.jsp");
+		return;
+	}
+	int id = Integer.parseInt(p);
 	String name = "";
 	try {
 		Connection con = CommonSQL.getDBConnection();
@@ -34,9 +39,15 @@
 	
 	<h1><% out.print(name); %></h1>
 	
-	<form method=post action=addtocart.jsp>
-		<input type="submit" value="Submit">
-	</form>
+	<%
+		if(session.getAttribute("cart") != null) {
+			out.print("<form method=post action=addtocart.jsp?id=");
+			out.print(id);
+			out.println(">");
+			out.println("<input type=submit value=\"Add To Cart\">");
+			out.println("</form>");
+		}
+	%>
 	
 	<table>
 		
@@ -112,6 +123,16 @@
 		</tr>
 		
 	</table>
+	
+	<%
+		if(session.getAttribute("cart") != null) {
+			out.print("<form method=post action=addtocart.jsp?id=");
+			out.print(id);
+			out.println(">");
+			out.println("<input type=submit value=\"Add To Cart\">");
+			out.println("</form>");
+		}
+	%>
 	
 </body>
 </html>
