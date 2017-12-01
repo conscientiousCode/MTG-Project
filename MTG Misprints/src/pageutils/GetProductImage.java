@@ -16,7 +16,7 @@ public class GetProductImage extends HttpServlet{
 	protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 		
-		int cardproductid = (int)request.getAttribute("cardproductid");
+		int cardproductid = Integer.parseInt(request.getParameter("cardproductid"));
 		String getImage = "SELECT image FROM CardProduct WHERE cardproductid = ?";
 		
 		try(Connection con = CommonSQL.getDBConnection();

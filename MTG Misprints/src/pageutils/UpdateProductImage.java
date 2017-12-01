@@ -38,7 +38,7 @@ public class UpdateProductImage extends HttpServlet{
 	        String sql = "UPDATE CardProduct SET image = ? WHERE cardproductid = ?";
 	        try (Connection con = CommonSQL.getDBConnection();
 	        		PreparedStatement pstmt = con.prepareStatement(sql)){
-	        	int cardproductid = (int)request.getAttribute("cardproductid");
+	        	int cardproductid = Integer.parseInt(request.getParameter("cardproductid"));
 	        	
 	        	pstmt.setInt(2, cardproductid);
 	             
