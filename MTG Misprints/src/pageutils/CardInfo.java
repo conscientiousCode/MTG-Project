@@ -4,7 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CardInfo {
-	
+
+	public static final int IGNORE = -1;
 	public static final int NAME = 0;
 	public static final int IMAGE = 1;
 	public static final int PRICE = 2;
@@ -36,6 +37,8 @@ public class CardInfo {
 			result.append("<td style=\"vertical-align:top;\">");
 			for(int i = 0; i < ids.length; i++) {
 				switch(ids[i]) {
+				case IGNORE:
+					break;
 				case NAME:
 					result.append("<a href=\"product.jsp?id=");
 					result.append(rs.getInt(1));

@@ -18,14 +18,29 @@
 	<h2>Settings</h2>
 	
 	<table>
-		<tr>
-			<td><b>Name:</b></td>
-			<td>Merchant.name</td>
-		</tr>
-		<tr>
-			<td><b>E-Mail:</b></td>
-			<td>currentemail@somedomain.com</td>
-		</tr>
+		<%
+			try {
+				Connection con = CommonSQL.getDBConnection();
+				PreparedStatement ps = con.prepareStatement("SELECT merchantname, email FROM Merchant JOIN SiteUser ON Merchant.suid = SiteUser.suid AND Merchant.suid=?;");
+				User user = (User) session.getAttribute("user");
+				//TODO: Redirect to error
+				if(user.userGroup != User.GROUP_MERCHANT) return;
+				ps.setInt(1, user.suid);
+				ps.execute();
+				ResultSet rs = ps.getResultSet();
+				if(rs.next()) {
+					out.print("<tr><td><b>Name:</b></td><td>");
+					out.print(rs.getString(1));
+					out.println("</td></tr>");
+					out.print("<tr><td><b>E-Mail:</b></td><td>");
+					out.print(rs.getString(2));
+					out.println("</td></tr>");
+				}
+			} catch(SQLException e) {
+				out.println(e);
+				e.printStackTrace();
+			}
+		%>
 	</table>
 	<h3><a href="settings.jsp">Modify</a></h3>
 	
@@ -38,7 +53,11 @@
 		<%
 			try {
 				Connection con = CommonSQL.getDBConnection();
-				PreparedStatement ps = con.prepareStatement("SELECT cardproductid, image, name, price, inventory, description FROM CardProduct WHERE merchantid=10;");
+				PreparedStatement ps = con.prepareStatement("SELECT cardproductid, image, name, price, inventory, description FROM CardProduct WHERE merchantid=?;");
+				User user = (User) session.getAttribute("user");
+				//TODO: Redirect to error
+				if(user.userGroup != User.GROUP_MERCHANT) return;
+				ps.setInt(1, user.suid);
 				ps.execute();
 				out.println(CardInfo.getCardInfo(ps.getResultSet(), CardInfo.NAME, CardInfo.PRICE, CardInfo.INV, CardInfo.DESC));
 				con.close();
@@ -56,18 +75,48 @@
 	
 		<tr><td colspan=2><h2>Pending Orders</h2></td></tr>
 		
-		<tr><td colspan=2>
-			<form method=get action=storeinfo.jsp>
-				<h3>Ordered On: ProductOrder.orderdate <input type="submit" value="Mark As Shipped"></h3>
-			</form>
-		</td></tr>
-		
 		<%
 			try {
 				Connection con = CommonSQL.getDBConnection();
-				PreparedStatement ps = con.prepareStatement("SELECT CardProduct.cardproductid, image, name, quantity, description FROM CardProduct JOIN InOrder ON CardProduct.cardproductid=InOrder.cardproductid WHERE merchantid=10;");
-				ps.execute();
-				out.println(CardInfo.getCardInfo(ps.getResultSet(), CardInfo.NAME, CardInfo.QUANT, CardInfo.DESC));
+				PreparedStatement ps1 = con.prepareStatement("SELECT InOrder.productorderid, InOrder.cardproductid, image, orderdate, name, quantity, description FROM InOrder, ProductOrder, CardProduct WHERE InOrder.productorderid=ProductOrder.productorderid AND InOrder.cardproductid=CardProduct.cardproductid AND merchantid=? AND shipdate IS NULL ORDER BY productorderid;");
+				User user = (User) session.getAttribute("user");
+				//TODO: Redirect to error
+				if(user.userGroup != User.GROUP_MERCHANT) return;
+				ps1.setInt(1, user.suid);
+				ps1.execute();
+				ResultSet rs = ps1.getResultSet();
+				int id = 0;
+				while(rs.next()) {
+					if(rs.getInt(1) != id) {
+						id = rs.getInt(1);
+						out.println("<tr><td colspan=2>");
+						out.println("<form method=get action=storeinfo.jsp>");
+						out.print("<h3>Ordered On: ");
+						out.print(rs.getString(4));
+						out.println("<input type=\"submit\" value=\"Mark As Shipped\"></h3>");
+						out.println("</form>");
+						out.println("</td></tr>");
+					}
+					out.println("<tr><td style=\"width:150px; vertical-align:top;\">");
+					out.print("<a href=\"product.jsp?id=");
+					out.print(rs.getInt(2));
+					out.print("\"><img src=");
+					// TODO: image from database
+					out.print("\"res/cardnoimage.png\"");
+					out.println("style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
+					out.println("</td>");
+					out.println("<td style=\"vertical-align:top;\">");
+					out.print("<a href=\"product.jsp?id=");
+					out.print(rs.getInt(2));
+					out.print("\"><b>");
+					out.print(rs.getString(5));
+					out.println("</b></a><br>");
+					out.print("<b>Quantity: </b>");
+					out.print(rs.getInt(6));
+					out.println("<br>");
+					out.print(rs.getString(7));
+					out.println("</td></tr>");
+				}
 				con.close();
 			} catch(SQLException e) {
 				out.println(e);
@@ -77,21 +126,54 @@
 		
 		<tr><td colspan=2><h2>Shipped Orders</h2></td></tr>
 		
-		<tr><td colspan=2><h3>Shipped On: OrderedProduct.shipdate</h3></td></tr>
-		<tr>
-			<td style="width:150px; vertical-align:top;">
-				<a href="product.jsp?id=2">
-					<img src="res/card2.jpg" style="max-width:150px; max-height:150px; display: block; margin:auto;">
-				</a>
-			</td>
-			<td style="vertical-align:top;">
-				<a href="product.jsp?id=2"><b>Wald Plains</b></a>
-				<br>
-				<b>Quantity: </b> 2
-				<br>
-				A Plains printed with it's name as "Wald", German for forest.
-			</td>
-		</tr>
+		<%
+			try {
+				Connection con = CommonSQL.getDBConnection();
+				PreparedStatement ps1 = con.prepareStatement("SELECT InOrder.productorderid, InOrder.cardproductid, image, shipdate, name, quantity, description FROM InOrder, ProductOrder, CardProduct WHERE InOrder.productorderid=ProductOrder.productorderid AND InOrder.cardproductid=CardProduct.cardproductid AND merchantid=? AND shipdate IS NOT NULL ORDER BY productorderid;");
+				User user = (User) session.getAttribute("user");
+				//TODO: Redirect to error
+				if(user.userGroup != User.GROUP_MERCHANT) return;
+				ps1.setInt(1, user.suid);
+				ps1.execute();
+				ResultSet rs = ps1.getResultSet();
+				int id = 0;
+				while(rs.next()) {
+					if(rs.getInt(1) != id) {
+						id = rs.getInt(1);
+						out.println("<tr><td colspan=2>");
+						out.println("<form method=get action=storeinfo.jsp>");
+						out.print("<h3>Shipped On: ");
+						out.print(rs.getString(4));
+						out.println("<input type=\"submit\" value=\"Mark As Shipped\"></h3>");
+						out.println("</form>");
+						out.println("</td></tr>");
+					}
+					out.println("<tr><td style=\"width:150px; vertical-align:top;\">");
+					out.print("<a href=\"product.jsp?id=");
+					out.print(rs.getInt(2));
+					out.print("\"><img src=");
+					// TODO: image from database
+					out.print("\"res/cardnoimage.png\"");
+					out.println("style=\"max-width:150px; max-height:150px; display:block; margin:auto;\"></a>");
+					out.println("</td>");
+					out.println("<td style=\"vertical-align:top;\">");
+					out.print("<a href=\"product.jsp?id=");
+					out.print(rs.getInt(2));
+					out.print("\"><b>");
+					out.print(rs.getString(5));
+					out.println("</b></a><br>");
+					out.print("<b>Quantity: </b>");
+					out.print(rs.getInt(6));
+					out.println("<br>");
+					out.print(rs.getString(7));
+					out.println("</td></tr>");
+				}
+				con.close();
+			} catch(SQLException e) {
+				out.println(e);
+				e.printStackTrace();
+			}
+		%>
 		
 	</table>
 	

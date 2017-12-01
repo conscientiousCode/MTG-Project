@@ -138,9 +138,9 @@ INSERT INTO Merchant (suid, merchantname) VALUES (10, 'Best Trash Cards');
 
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card1', 1, 5, 'first description');
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 2, 5, 'second description');
-INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 3, 5, 'third description');
-INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 4, 5, 'fourth description');
-INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card2', 5, 5, 'fifth description');
+INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card3', 3, 5, 'third description');
+INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card4', 4, 5, 'fourth description');
+INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card5', 5, 5, 'fifth description');
 
 INSERT INTO CardAttribute (name, description) VALUES ('Land', 'A card that adds to your mana pool');
 INSERT INTO CardAttribute (name, description) VALUES ('Artifact', 'An artifact: creature or other');
@@ -159,6 +159,14 @@ INSERT INTO InCart (cardproductid, custid, quantity) VALUES (3, 1, 3);
 INSERT INTO InCart (cardproductid, custid, quantity) VALUES (4, 1, 4);
 INSERT INTO InCart (cardproductid, custid, quantity) VALUES (5, 1, 5);
 
-INSERT INTO ProductOrder (custid, orderdate, creditcard, cardexpiry, totalcost) VALUES (1, '2017-11-28', '1234567890123456', '3000-11-28', 9);
+INSERT INTO ProductOrder (custid, orderdate, shipdate, creditcard, cardexpiry, totalcost) VALUES (1, '2017-11-28', '2017-11-29', '1234567890123456', '3000-11-28', 9);
 INSERT INTO InOrder (productorderid, cardproductid, quantity) VALUES (1, 4, 1);
 INSERT INTO InOrder (productorderid, cardproductid, quantity) VALUES (1, 5, 1);
+
+INSERT INTO ProductOrder (custid, orderdate, shipdate, creditcard, cardexpiry, totalcost) VALUES (1, '2017-11-28', '2017-11-30', '1234567890123456', '3000-11-28', 9);
+INSERT INTO InOrder (productorderid, cardproductid, quantity) VALUES (2, 4, 1);
+INSERT INTO InOrder (productorderid, cardproductid, quantity) VALUES (2, 5, 1);
+
+INSERT INTO ProductOrder (custid, orderdate, creditcard, cardexpiry, totalcost) VALUES (1, '2017-11-28', '1234567890123456', '3000-11-28', 9);
+INSERT INTO InOrder (productorderid, cardproductid, quantity) VALUES (3, 4, 1);
+INSERT INTO InOrder (productorderid, cardproductid, quantity) VALUES (3, 5, 1);
