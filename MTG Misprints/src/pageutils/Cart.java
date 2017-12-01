@@ -71,7 +71,6 @@ public class Cart extends ArrayList<CartItem> implements HttpSessionBindingListe
 		
 		try(Connection con = CommonSQL.getDBConnection();
 				PreparedStatement pstmt = con.prepareStatement(getQuantities);){
-			System.out.println("reached");
 			pstmt.setInt(1, user.suid);
 			ResultSet rs = pstmt.executeQuery();
 			Cart cart = new Cart(user);
