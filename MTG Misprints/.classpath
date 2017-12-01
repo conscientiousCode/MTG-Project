@@ -16,5 +16,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/jsp-api.jar"/>
 	<classpathentry kind="lib" path="libs/servlet-api.jar"/>
+	<classpathentry kind="lib" path="libs/javax.mail.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
