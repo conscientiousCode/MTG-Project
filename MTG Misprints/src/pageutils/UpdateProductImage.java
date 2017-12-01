@@ -1,5 +1,7 @@
 package pageutils;
-/*This code is essentially copied from http://www.codejava.net/coding/upload-files-to-database-servlet-jsp-mysql*/
+/*This code is essentially copied from http://www.codejava.net/coding/upload-files-to-database-servlet-jsp-mysql
+ * These peoples terms of use
+ * */
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -36,7 +38,7 @@ public class UpdateProductImage extends HttpServlet{
 	        String sql = "UPDATE CardProduct SET image = ? WHERE cardproductid = ?";
 	        try (Connection con = CommonSQL.getDBConnection();
 	        		PreparedStatement pstmt = con.prepareStatement(sql)){
-	        	int cardproductid = Integer.parseInt(request.getParameter("cardproductid"));
+	        	int cardproductid = (int)request.getAttribute("cardproductid");
 	        	
 	        	pstmt.setInt(2, cardproductid);
 	             
