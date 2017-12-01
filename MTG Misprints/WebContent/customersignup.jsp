@@ -10,6 +10,13 @@
 </head>
 <body>
 	<%out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));%>
+	<%
+		String error = request.getParameter("formentryerror");
+		if(error != null){
+			out.println(error);
+		}
+		
+	%>
 	<h2><b>Create User Form: </b></h2><br>
 	<form method=get action=createcustomer.jsp>
 		<table>

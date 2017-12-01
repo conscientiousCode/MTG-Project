@@ -103,15 +103,16 @@ public class Customer {
 			return false;
 		}
 		
-		String sql = "INSERT INTO Customer (firstname, lastname, address, city, province, postalcode) VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO Customer (custid,firstname, lastname, address, city, province, postalcode) VALUES (?,?,?,?,?,?,?)";
 		try(Connection con = CommonSQL.getDBConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
-				pstmt.setString(1, customer.firstName);
-				pstmt.setString(2, customer.lastName);
-				pstmt.setString(3, customer.address);
-				pstmt.setString(4, customer.city);
-				pstmt.setString(5, customer.province);
-				pstmt.setString(6, customer.postalCode);
+				pstmt.setInt(1, suid);
+				pstmt.setString(2, customer.firstName);
+				pstmt.setString(3, customer.lastName);
+				pstmt.setString(4, customer.address);
+				pstmt.setString(5, customer.city);
+				pstmt.setString(6, customer.province);
+				pstmt.setString(7, customer.postalCode);
 				
 				int success = pstmt.executeUpdate();
 				if(success > 0){
@@ -139,6 +140,7 @@ public class Customer {
 				PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 			pstmt.setString(1, email);
 			pstmt.setString(2, password);
+			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
 		    if(rs.next()){
