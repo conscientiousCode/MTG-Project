@@ -27,7 +27,6 @@
 					PreparedStatement pstmt = con.prepareStatement("Select name FROM CardAttribute");){
 				 ResultSet rs = pstmt.executeQuery();
 				 while(rs.next()){
-					 System.out.println("running");
 					 String name = rs.getString("name");
 					 out.println("<input type=\"checkbox\" name=\""+ name+ "\">"+ name + "<br>");
 				 }

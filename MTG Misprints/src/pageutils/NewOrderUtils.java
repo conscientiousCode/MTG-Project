@@ -50,6 +50,9 @@ public class NewOrderUtils {
 	//Checks price and inventory, if inventory > quantity wanted, update quantity to the amount that we have
 	//It is possible that if this runs when someone checks out, the values will be wrong.
 	public static Cart validateCartQuantities(Cart userCart){
+		if(userCart == null){
+			return null;
+		}
 		Cart validCart = new Cart(userCart.getUser());
 		String getItem = "SELECT * FROM CardProduct WHERE cardproductid = ?";
 		for(CartItem item : userCart){
@@ -58,19 +61,20 @@ public class NewOrderUtils {
 				pstmt.setInt(1, item.productid);
 				
 				ResultSet rs = pstmt.executeQuery();
-				CardProduct product = CardProduct.getCard(rs);
-				int newQuantity;
-				BigDecimal newPrice = product.price;
-				if(product.inventory == 0){
-					continue;//There is no stock left, so remove it from the validated cart
-				}else if(item.quantity > product.inventory){
-					newQuantity =product.inventory;
-				}else{
-					newQuantity = item.quantity;
-				}
-				
+				if (rs.next()) {
+					CardProduct product = CardProduct.getCard(rs);
+					int newQuantity;
+					BigDecimal newPrice = product.price;
+					if (product.inventory == 0) {
+						continue;// There is no stock left, so remove it from
+									// the validated cart
+					} else if (item.quantity > product.inventory) {
+						newQuantity = product.inventory;
+					} else {
+						newQuantity = item.quantity;
+					}
 				validCart.add(new CartItem(item.productid, item.name, newPrice, newQuantity, ""));
-				
+				}
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -81,6 +85,8 @@ public class NewOrderUtils {
 		}
 		return validCart;
 	}
+	
+	
 	
 	public static void main(String[] args){
 		

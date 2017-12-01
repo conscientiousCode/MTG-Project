@@ -9,7 +9,13 @@
 <body>
 	
 	<!-- WEBPAGE HEADER -->
-	<% out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart"))); %>
+	<% out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart"))); 
+		User user = (User) session.getAttribute("user");
+		if(user == null || user.userGroup != User.GROUP_CUSTOMER){
+			response.sendRedirect("home.jsp");
+			return;
+		}
+	%>
 	
 	<!-- WEBPAGE CONTENT -->
 	
@@ -23,7 +29,7 @@
 			try {
 				Connection con = CommonSQL.getDBConnection();
 				PreparedStatement ps1 = con.prepareStatement("SELECT InOrder.productorderid, InOrder.cardproductid, image, orderdate, name, quantity, description FROM InOrder, ProductOrder, CardProduct WHERE InOrder.productorderid=ProductOrder.productorderid AND InOrder.cardproductid=CardProduct.cardproductid AND custid=? AND shipdate IS NULL ORDER BY productorderid;");
-				User user = (User) session.getAttribute("user");
+				
 				ps1.setInt(1, user.suid);
 				ps1.execute();
 				ResultSet rs = ps1.getResultSet();
@@ -68,7 +74,6 @@
 			try {
 				Connection con = CommonSQL.getDBConnection();
 				PreparedStatement ps1 = con.prepareStatement("SELECT InOrder.productorderid, InOrder.cardproductid, image, shipdate, name, quantity, description FROM InOrder, ProductOrder, CardProduct WHERE InOrder.productorderid=ProductOrder.productorderid AND InOrder.cardproductid=CardProduct.cardproductid AND custid=? AND shipdate IS NOT NULL ORDER BY productorderid;");
-				User user = (User) session.getAttribute("user");
 				ps1.setInt(1, user.suid);
 				ps1.execute();
 				ResultSet rs = ps1.getResultSet();
