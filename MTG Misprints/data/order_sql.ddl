@@ -54,7 +54,7 @@ CREATE TABLE CardProduct(
 	cardproductid INTEGER PRIMARY KEY AUTO_INCREMENT,
 	merchantid INTEGER NOT NULL,
 	name VARCHAR(120) NOT NULL,
-	image BLOB,
+	image MEDIUMBLOB,
 	description VARCHAR(1024),
 	price DECIMAL(8,2) NOT NULL,
 	inventory INTEGER NOT NULL,

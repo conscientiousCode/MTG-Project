@@ -11,6 +11,7 @@
 <%
 	User user = (User)session.getAttribute("user");
 	if(user == null || user.userGroup != User.GROUP_MERCHANT){
+		response.sendRedirect("accessdenied.jsp");
 		//TODO: redirecto to a page stating they cannot access that portion of the site
 		out.println("If you are seeing this, there is unimplemented functionality");
 	}
@@ -21,19 +22,19 @@
 	
 	<h1>Add Product</h1>
 	
-	<form method=post action=storeinfo.jsp>
+	<form method=post action=uploadServlet enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td><b>Name:</b></td>
 				<td><input type="text" name="name"></td>
 			</tr>
 			<tr>
-				<td><b>Price:</b></td>
-				<td><input type="text" name="price"></td>
+				<td><b>Price ($):</b></td>
+				<td><input type="number" min=0 step=0.01 name="price"></td>
 			</tr>
 			<tr>
 				<td><b>Inventory:</b></td>
-				<td><input type="number" name="inventory"></td>
+				<td><input type="number" min=1 name="inventory"></td>
 			</tr>
 			<tr>
 				<td style="vertical-align:top"><b>Description:</b></td>
@@ -41,7 +42,7 @@
 			</tr>
 			<tr>
 				<td style="vertical-align:top"><b>Upload Image:</b></td>
-				<td><input type="file" name="image"></td>
+				<td><input type="file" name="image" accept=".jpg"></td>
 			</tr>
 		</table>
 		<input type="submit" value="Submit">

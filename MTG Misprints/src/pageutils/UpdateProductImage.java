@@ -17,7 +17,8 @@ public class UpdateProductImage extends HttpServlet{
 	 protected void doPost(HttpServletRequest request,
 	            HttpServletResponse response) throws ServletException, IOException {
 	        // gets values of text fields
-	         
+	        
+		 
 	        InputStream inputStream = null; // input stream of the upload file
 	         
 	        // obtains the upload file part in this multipart request
@@ -31,14 +32,12 @@ public class UpdateProductImage extends HttpServlet{
 	            // obtains input stream of the upload file
 	            inputStream = filePart.getInputStream();
 	        }
-	         
-	        Connection conn = null; // connection to the database
-	        String message = null;  // message will be sent back to client
-	         
+	        String message = null;
+	        
 	        String sql = "UPDATE CardProduct SET image = ? WHERE cardproductid = ?";
 	        try (Connection con = CommonSQL.getDBConnection();
 	        		PreparedStatement pstmt = con.prepareStatement(sql)){
-	        	int cardproductid = Integer.parseInt(request.getParameter("cardproductid"));
+	        	int cardproductid = 2;//Integer.parseInt(request.getParameter("cardproductid"));
 	        	
 	        	pstmt.setInt(2, cardproductid);
 	             
@@ -58,20 +57,9 @@ public class UpdateProductImage extends HttpServlet{
 	        } catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} finally {
-	            if (conn != null) {
-	                // closes the database connection
-	                try {
-	                    conn.close();
-	                } catch (SQLException ex) {
-	                    ex.printStackTrace();
-	                }
-	            }
-	            // sets the message in request scope
-	            request.setAttribute("Message", message);
-	             
-	            // forwards to the message page
-	            getServletContext().getRequestDispatcher("/Message.jsp").forward(request, response);
-	        }
+			} 
+	        
+	        response.sendRedirect("storeinfo.jsp");
+	        
 	    }
 }
