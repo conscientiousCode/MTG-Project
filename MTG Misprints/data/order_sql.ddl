@@ -144,9 +144,29 @@ INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card5', 5, 5, 'fifth description');
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'cardWithNoStock', 1, 0, 'first description');
 
-INSERT INTO CardAttribute (name, description) VALUES ('Land', 'A card that adds to your mana pool');
-INSERT INTO CardAttribute (name, description) VALUES ('Artifact', 'An artifact: creature or other');
-INSERT INTO CardAttribute (name, description) VALUES ('4-card', 'A miscut that contains 4 other cards');
+INSERT INTO CardAttribute (name) VALUES ('Artifact');
+INSERT INTO CardAttribute (name) VALUES ('Creature');
+INSERT INTO CardAttribute (name) VALUES ('Enchantment');
+INSERT INTO CardAttribute (name) VALUES ('Instant');
+INSERT INTO CardAttribute (name) VALUES ('Legendary');
+INSERT INTO CardAttribute (name) VALUES ('Planeswalker');
+INSERT INTO CardAttribute (name) VALUES ('Sorcery');
+INSERT INTO CardAttribute (name) VALUES ('White');
+INSERT INTO CardAttribute (name) VALUES ('Blue');
+INSERT INTO CardAttribute (name) VALUES ('Black');
+INSERT INTO CardAttribute (name) VALUES ('Red');
+INSERT INTO CardAttribute (name) VALUES ('Green');
+INSERT INTO CardAttribute (name) VALUES ('Misprint');
+INSERT INTO CardAttribute (name) VALUES ('Miscolor');
+INSERT INTO CardAttribute (name) VALUES ('Blotched');
+INSERT INTO CardAttribute (name) VALUES ('Miscut');
+INSERT INTO CardAttribute (name) VALUES ('Wrong Text');
+INSERT INTO CardAttribute (name) VALUES ('Wrong Image');
+INSERT INTO CardAttribute (name) VALUES ('Foreign Language');
+INSERT INTO CardAttribute (name) VALUES ('Signed');
+INSERT INTO CardAttribute (name) VALUES ('Damaged');
+INSERT INTO CardAttribute (name) VALUES ('Foil');
+INSERT INTO CardAttribute (name) VALUES ('Altered');
 
 INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (1,1);
 INSERT INTO HasAttribute (cardproductid, cardattributeid) VALUES (1,2);
