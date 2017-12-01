@@ -18,7 +18,6 @@
 	
 	<form method=get action=searchresults.jsp>
 	
-		<b>Product Name</b><br>
 		<input type="text" name="querry" size=30><br>
 		<br>
 		

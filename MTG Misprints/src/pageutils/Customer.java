@@ -3,8 +3,8 @@ import java.sql.*;
 
 public class Customer {
 	//ALL ARE NOT NULL
-	String email, password; 
-	String firstName, lastName, address, city, province, postalCode;
+	public String email, password; 
+	public String firstName, lastName, address, city, province, postalCode;
 	public static final int ML_EMAIL = 50, ML_PASSWORD = 30, ML_FIRST_NAME = 20, ML_LAST_NAME = 30, ML_ADDRESS = 50, ML_CITY = 25, RL_PROVINCE = 2, RL_POSTAL_CODE = 6;
 	public static final String[] PROVINCES = {"BC", "AB", "SK", "MB", "ON", "QB", "NB", "NS", "PI", "NL", "YK", "NW", "NV"};
 	
@@ -48,10 +48,10 @@ public class Customer {
 	private static boolean requiredFieldIsNullOrEmpty(String[] values){
 		for(String s: values){
 			if(s == null || s.length() ==0){
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	private static boolean allStringLengthsAreValid(String email, String password, String firstName, String lastName, String address, String city, String province, String postalCode){
@@ -96,16 +96,6 @@ public class Customer {
 		return email.matches(regex);
 	}
 	
-	private static boolean isLetterOrNumber(char c){
-		String s = "c";
-		s = s.toUpperCase();
-		c = s.charAt(0);
-		if('A' > c || 'Z' < c || '0' > c ||	'9' < c){
-			return false;
-		}else{
-			return true;
-		}
-	}
 	
 	public static boolean insertNewCustomer(Customer customer){
 		int suid = insertIntoSuid(customer.email, customer.password);
@@ -124,12 +114,18 @@ public class Customer {
 				pstmt.setString(6, customer.postalCode);
 				
 				int success = pstmt.executeUpdate();
-				return success > 0;
+				if(success > 0){
+					return true;
+				}else{
+					removeSiteUser(suid);
+					return false;
+				}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			removeSiteUser(suid);
 			e.printStackTrace();
 			return false;
 		} catch (SQLException e) {
+			removeSiteUser(suid);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
@@ -159,6 +155,25 @@ public class Customer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return -1;
+		}
+	}
+	
+	private static boolean removeSiteUser(int suid){
+		String sql = "DELETE FROM SiteUser WHERE suid = ?";
+		try(Connection con = CommonSQL.getDBConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, suid);
+			
+			return pstmt.executeUpdate() > 0;
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
