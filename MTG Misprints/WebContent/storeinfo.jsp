@@ -17,7 +17,6 @@
 		return;
 	}
 	String shipid = request.getParameter("id");
-	System.out.println("test" + shipid);
 	if(shipid != null) {
 		try {
 			Connection con = CommonSQL.getDBConnection();
