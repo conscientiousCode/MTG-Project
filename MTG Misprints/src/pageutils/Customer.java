@@ -1,4 +1,5 @@
 package pageutils;
+import java.sql.*;
 
 public class Customer {
 	//ALL ARE NOT NULL
@@ -91,7 +92,7 @@ public class Customer {
 		if(email == null){
 			return false;
 		}
-		String regex = "\\w+[@]\\w+[.]\\w+";
+		String regex = "\\w+[@]\\w+[.][a-zA-Z]+";
 		return email.matches(regex);
 	}
 	
@@ -106,8 +107,63 @@ public class Customer {
 		}
 	}
 	
-	public static void main(String[] args){
+	public static boolean insertNewCustomer(Customer customer){
+		int suid = insertIntoSuid(customer.email, customer.password);
+		if(suid < 0){
+			return false;
+		}
 		
+		String sql = "INSERT INTO Customer (firstname, lastname, address, city, province, postalcode) VALUES (?,?,?,?,?,?)";
+		try(Connection con = CommonSQL.getDBConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+				pstmt.setString(1, customer.firstName);
+				pstmt.setString(2, customer.lastName);
+				pstmt.setString(3, customer.address);
+				pstmt.setString(4, customer.city);
+				pstmt.setString(5, customer.province);
+				pstmt.setString(6, customer.postalCode);
+				
+				int success = pstmt.executeUpdate();
+				return success > 0;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private static int insertIntoSuid(String email, String password){
+		String sql = "INSERT INTO SiteUser (email, password) VALUES (?,?)";
+		
+		try(Connection con = CommonSQL.getDBConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
+			
+			ResultSet rs = pstmt.getGeneratedKeys();
+		    if(rs.next()){
+		    	return rs.getInt(1);
+		    }else{
+		    	return -1;
+		    }
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	public static void main(String[] args){
+		System.out.println(emailIsWellFormed("danielherman@hotmail.ca"));
 	}
 	
 }
