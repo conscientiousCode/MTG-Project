@@ -22,7 +22,7 @@
 			try {
 				
 				Connection con = CommonSQL.getDBConnection();
-				PreparedStatement ps = con.prepareStatement("SELECT cardproductid, name, price, description FROM CardProduct ORDER BY price DESC LIMIT 8");
+				PreparedStatement ps = con.prepareStatement("SELECT cardproductid, name, price, description FROM CardProduct WHERE inventory>0 ORDER BY price DESC LIMIT 8");
 				ps.execute();
 				ResultSet rs = ps.getResultSet();
 				

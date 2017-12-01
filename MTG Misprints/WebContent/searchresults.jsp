@@ -13,15 +13,6 @@
 	
 <%
 	out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));
-	
-	int[] attributes = ParseSearchRequest.getAttributes(request);
-	String querry = request.getParameter("querry");
-	
-	out.println("<table>");
-	out.println(CardInfo.getCardInfo(Search.getSearchResults(querry, attributes)));
-	out.println("<table>");
-	
-	
 %>
 	
 	
@@ -29,6 +20,15 @@
 	<!-- TODO: fetch sample products via sql -->
 	
 	<h1>Search Results</h1>
+	
+	<%
+		int[] attributes = ParseSearchRequest.getAttributes(request);
+		String querry = request.getParameter("querry");
+	
+		out.println("<table>");
+		out.println(CardInfo.getCardInfo(Search.getSearchResults(querry, attributes)));
+		out.println("<table>");
+	%>
 	
 </body>
 </html>

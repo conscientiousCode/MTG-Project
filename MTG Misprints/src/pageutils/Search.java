@@ -49,6 +49,7 @@ public class Search {
 			Arrays.sort(attributes);
 			candidateCards = "SELECT * FROM HasAttribute, CardProduct"
 					+ " WHERE HasAttribute.cardproductid = CardProduct.cardproductid"
+					+ " AND inventory > 0"
 					+ " ORDER BY CardProduct.cardproductid ASC, cardattributeid ASC";
 			try(Connection con = CommonSQL.getDBConnection();
 					PreparedStatement pstmt = con.prepareStatement(candidateCards);){
