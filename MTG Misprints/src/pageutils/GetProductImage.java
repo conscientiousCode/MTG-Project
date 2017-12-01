@@ -13,7 +13,7 @@ import java.sql.*;
 @WebServlet("/downloadServlet")
 public class GetProductImage extends HttpServlet{
 	
-	public void doPost(HttpServletRequest request,
+	public void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 		
 		int cardproductid = Integer.parseInt(request.getParameter("cardproductid"));

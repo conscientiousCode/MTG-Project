@@ -45,6 +45,7 @@
 				<td><input type="file" name="image" accept=".jpg"></td>
 			</tr>
 		</table>
+		<input type="hidden" name="merchantid" value=<%out.print("\""+user.suid+"\"");%>>
 		<input type="submit" value="Submit">
 	</form>
 	
