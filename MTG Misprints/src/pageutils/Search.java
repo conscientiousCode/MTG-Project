@@ -24,11 +24,13 @@ public class Search {
 		}
 		String[] parsedSearch = parseSearchString(searchString);
 		Iterator<CardProduct> cardIter = cards.iterator();
-		
+		for(int i =0; i < parsedSearch.length; i++){
+			parsedSearch[i] = parsedSearch[i].trim().toLowerCase();
+		}
 		while(cardIter.hasNext()){
 			CardProduct currentCard = cardIter.next();
 			for(String searchTerm: parsedSearch){
-				if(!(currentCard.name.contains(searchTerm) || currentCard.description.contains(searchTerm))){
+				if(!((currentCard.name.toLowerCase()).contains(searchTerm) || (currentCard.description.toLowerCase()).contains(searchTerm))){
 					//Then the card does not contain the key word in its description or name, so discard it
 					cardIter.remove();
 					continue;
