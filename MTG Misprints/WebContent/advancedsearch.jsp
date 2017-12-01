@@ -28,17 +28,17 @@
 					PreparedStatement pstmt = con.prepareStatement("Select name FROM CardAttribute");){
 				 ResultSet rs = pstmt.executeQuery();
 				 while(rs.next()){
+					 System.out.println("running");
 					 String name = rs.getString("name");
-					 out.println("<input type=\"checkbox\" name=\""+ attribute1+">"+ +"<br>");
+					 out.println("<input type=\"checkbox\" name=\""+ name+ "\">"+ name + "<br>");
 				 }
+			}catch(ClassNotFoundException e){
+				
+			}catch(SQLException e){
+				
 			}
 		%>
 		
-		<input type="checkbox" name="attribute1">attribute1<br>
-		<input type="checkbox" name="attribute2">attribute2<br>
-		<input type="checkbox" name="attribute3">attribute3<br>
-		<input type="checkbox" name="misprint">Misprint<br>
-		<input type="checkbox" name="foreignlanguage">Foreign Language<br>
 		<br>
 		
 		<input type="submit" value="Advanced Search">
