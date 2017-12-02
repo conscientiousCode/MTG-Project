@@ -66,7 +66,6 @@
 			}
 		%>
 	</table>
-	<h3><a href="settings.jsp">Modify</a></h3>
 	
 	<h2>Products</h2>
 	
@@ -91,7 +90,6 @@
 		
 	</table>
 	
-	<h3><a href="addproduct.jsp">Add Product</a></h3>
 	
 	<table>
 	

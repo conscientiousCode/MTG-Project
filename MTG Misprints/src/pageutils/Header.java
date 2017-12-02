@@ -73,9 +73,6 @@ public class Header {
 				+ "				<a href=\"myorders.jsp\"><b>"+ user.name +"</b></a><br><br>"
 				+ "				<a href=\"cart.jsp\"><b>My Cart</b></a> - Total: $" + cart.total + "<br>"
 				+ "              <table style=\"width:100%; text-align:right;\"><tr><td>"
-				/*+ "				<form method=get action=myorders.jsp>"
-				+ "					<input type=\"submit\" value=\"Order History\">"
-				+ "				</form>"*/
 				+ "				<form method=get action=logout.jsp>"
 				+ "					<input type=\"submit\" value=\"Logout\">"
 				+ "				</form>"
