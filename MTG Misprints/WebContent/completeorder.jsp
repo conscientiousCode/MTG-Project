@@ -30,7 +30,7 @@
 			int orderid = keys.getInt(1);
 			PreparedStatement ps3 = con.prepareStatement("INSERT INTO InOrder (cardproductid, productorderid, quantity) VALUES (?, ?, ?);");
 			for(CartItem item : cart) {
-				//NewOrderUtils.removeQuantityFromCardProduct(item.productid, item.quantity);
+				System.out.println(NewOrderUtils.removeQuantityFromCardProduct(item.productid, item.quantity));
 				ps3.setInt(1, item.productid);
 				ps3.setInt(2, orderid);
 				ps3.setInt(3, item.quantity);

@@ -86,7 +86,27 @@ public class NewOrderUtils {
 		return validCart;
 	}
 	
-	
+	public static boolean removeQuantityFromCardProduct(int productId, int quantity){
+		if(productId <1 || quantity < 1){
+			return false;
+		}
+		String sql = "UPDATE  CardProduct SET inventory = (inventory - ?) WHERE cardproductid = ?";
+		try(Connection con = CommonSQL.getDBConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, quantity);
+			pstmt.setInt(2, productId);
+			pstmt.executeUpdate();
+			return true;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 	public static void main(String[] args){
 		
