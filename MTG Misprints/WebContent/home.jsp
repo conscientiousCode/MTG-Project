@@ -17,43 +17,10 @@
 	<h1>Sample Products</h1>
 	
 	<table>
-		
-		<%
-			try {
 				
-				Connection con = CommonSQL.getDBConnection();
-				PreparedStatement ps = con.prepareStatement("SELECT cardproductid, name, price, description FROM CardProduct WHERE inventory>0 ORDER BY price DESC LIMIT 8");
-				ps.execute();
-				ResultSet rs = ps.getResultSet();
-				
-				while(rs.next()) {
-					out.println("<tr><td style=\"width:150px; vertival-align:top;\">");
-					out.print("<a href=\"product.jsp?id=");
-					out.print(rs.getInt(1));
-					out.println("\">");
-					out.print("<img src=");
-					out.print(CommonSQL.getImageSourceForProduct(rs.getInt(1)));
-					out.print(" style=\"max-width:150px; max-height:150px; display:block; margin:auto;\">");
-					out.println("</a>");
-					out.println("</td>");
-					out.println("<td style=\"vertical-align:top;\">");
-					out.print("<a href=\"product.jsp?id=");
-					out.print(rs.getInt(1));
-					out.print("\"><b>");
-					out.print(rs.getString(2));
-					out.println("</b></a><br>");
-					out.print("<b>Price: </b>$");
-					out.print(rs.getString(3));
-					out.println("<br>");
-					out.println(rs.getString(4));
-					out.println("</td></tr>");
-				}
-				
-				con.close();
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-		%>
+		<% out.println("<table>");
+		out.println(CardInfo.getCardInfo(Search.reverseOrder(Search.getSearchResults("", null))));
+		out.println("<table>");%>
 		
 	</table>
 	

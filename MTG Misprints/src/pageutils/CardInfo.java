@@ -4,8 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import dto.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import java.sql.*;
+
+
 
 public class CardInfo {
 
@@ -124,7 +129,16 @@ public static String getCardInfo(LinkedList<CardProduct> cards) throws SQLExcept
 			result.append("<br>");
 			//Attributes
 			//TODO fetch from SQL
-			
+			String[] attributes = getAttributesForCard(currentCard.cardproductid);
+			if(attributes != null){
+				
+				for(String attribute : attributes){
+					result.append("<a href=\"searchresults.jsp?"+attribute+"=" + attribute);
+					result.append("\">");
+					result.append(attribute);
+					result.append("</a>  ");
+				}
+			}
 			result.append("<br>");
 		}
 			result.append("</td>");
@@ -132,6 +146,37 @@ public static String getCardInfo(LinkedList<CardProduct> cards) throws SQLExcept
 		
 		return result.toString();
 		
+	}
+	
+	private static String[] getAttributesForCard(int cardproductid){
+		if(cardproductid< 1){
+			return null;
+		}
+		
+		String sql = "SELECT DISTINCT a.name FROM CardProduct as p, HasAttribute as h, CardAttribute as a"
+				+ " WHERE ? = h.cardproductid AND h.cardattributeid = a.cardattributeid";
+		
+		try(Connection con = CommonSQL.getDBConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+				pstmt.setInt(1, cardproductid);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			ArrayList<String> attributes = new ArrayList<String>();
+			while(rs.next()){
+				attributes.add(rs.getString("name"));
+			}
+			return attributes.toArray(new String[0]);
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }

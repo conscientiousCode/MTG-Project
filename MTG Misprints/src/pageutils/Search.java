@@ -129,6 +129,17 @@ public class Search {
 		return words.toArray(new String[0]);
 	}
 	
+	public static LinkedList<CardProduct> reverseOrder(LinkedList<CardProduct> forwardList){
+
+		LinkedList<CardProduct> reversed = new LinkedList<CardProduct>();
+		for(CardProduct c : forwardList){
+			reversed.addFirst(c);
+		}
+		return reversed;
+
+	}
+	
+	
 	public static void main(String[] args){
 		int[] attributes = {};
 		LinkedList<CardProduct> cards = getSearchResults("", attributes);
