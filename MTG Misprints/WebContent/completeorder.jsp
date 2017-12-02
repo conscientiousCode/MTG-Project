@@ -39,6 +39,7 @@
 
 			ps3.close();
 		}
+		session.setAttribute("cart",new Cart(cart.getUser()));
 		ps1.close();
 		con.close();
 		session.setAttribute("cart", new Cart(user));
