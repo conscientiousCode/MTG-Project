@@ -119,10 +119,7 @@
 			e.printStackTrace();
 		}
 	%>
-	
-	<form method=post action=placeorder.jsp>
-		<input type="submit" value="Place Order">
-	</form>
+
 
 </body>
 </html>
