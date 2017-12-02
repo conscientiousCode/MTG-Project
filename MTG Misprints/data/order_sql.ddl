@@ -121,8 +121,8 @@ INSERT INTO SiteUser (email, password) VALUES ('fakeEmail5@hoxmail.com', 'fakeEm
 INSERT INTO SiteUser (email, password) VALUES ('fakeEmail6@hoxmail.com', 'fakeEmail6@hoxmail.com');
 INSERT INTO SiteUser (email, password) VALUES ('fakeEmail7@hoxmail.com', 'fakeEmail7@hoxmail.com');
 INSERT INTO SiteUser (email, password) VALUES ('fakeEmail8@hoxmail.com', 'fakeEmail8@hoxmail.com');
-INSERT INTO SiteUser (email, password) VALUES ('fakeEmail9@hoxmail.com', 'fakeEmail9@hoxmail.com');
 INSERT INTO SiteUser (email, password) VALUES ('merchant1@hoxmail.com', 'merchant1@hoxmail.com');
+INSERT INTO SiteUser (email, password) VALUES ('merchant2@hoxmail.com', 'merchant2@hoxmail.com');
 
 INSERT INTO Customer (custid, firstname, lastname, address, city, province, postalcode) VALUES (1, 'Customer', 'One', '17 street ave', 'Edmonton', 'BC', 'G7G7G7');
 INSERT INTO Customer (custid, firstname, lastname, address, city, province, postalcode) VALUES (2, 'Ned', 'Sampson', '5 street ave', 'Calgary', 'AB', 'H8H8H8');
@@ -132,9 +132,8 @@ INSERT INTO Customer (custid, firstname, lastname, address, city, province, post
 INSERT INTO Customer (custid, firstname, lastname, address, city, province, postalcode) VALUES (6, 'Ned', 'Fletcher', '13 street ave', 'Kelowna', 'MB', 'H8H8H8');
 INSERT INTO Customer (custid, firstname, lastname, address, city, province, postalcode) VALUES (7, 'Ned', 'Tompkins', '16 street ave', 'Montreal', 'MB', 'H8H8H8');
 INSERT INTO Customer (custid, firstname, lastname, address, city, province, postalcode) VALUES (8, 'Tom', 'Kendrik', '0 street ave', 'Winnipeg', 'SK', 'A1A1A1');
-INSERT INTO Customer (custid, firstname, lastname, address, city, province, postalcode) VALUES (9, 'George', 'Russel', '2 street ave', 'Kelowna', 'NS', 'I9I9I9');
-INSERT INTO Merchant (suid, merchantname) VALUES (10, 'Best Trash Cards');
-
+INSERT INTO Merchant (suid, merchantname) VALUES (9, 'Best Trash Cards');
+INSERT INTO Merchant (suid, merchantname) VALUES (10, 'Worst Top Cards');
 
 
 INSERT INTO CardProduct (merchantid, name, price, inventory, description) VALUES (10, 'card1', 1, 5, 'first description');
