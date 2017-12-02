@@ -80,7 +80,9 @@
 					String description = rs.getString(7);
 					do {
 						String attribute = rs.getString(6);
-						out.print("<a href=\"searchresults.jsp?tag=");
+						out.print("<a href=\"searchresults.jsp?");
+						out.print(attribute);
+						out.print("=");
 						out.print(attribute);
 						out.print("\">");
 						out.print(attribute);
