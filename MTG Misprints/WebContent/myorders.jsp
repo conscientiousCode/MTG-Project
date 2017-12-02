@@ -82,7 +82,7 @@
 					if(rs.getInt(1) != id) {
 						id = rs.getInt(1);
 						out.println("<tr><td colspan=2>");
-						out.print("<h3>Ordered On: ");
+						out.print("<h3>Shipped On: ");
 						out.print(rs.getString(4));
 						out.println("</td></tr>");
 					}
