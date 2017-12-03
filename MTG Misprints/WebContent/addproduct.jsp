@@ -43,7 +43,7 @@
 			</tr>
 			<tr>
 				<td style="vertical-align:top"><b>Upload Image:</b></td>
-				<td><input type="file" name="image" accept=".jpg"></td>
+				<td><input type="file" name="image" accept=".jpg"> (.jpg &lt; 1Mb)</td>
 			</tr>
 		</table>
 		<b>Tags:</b><br>

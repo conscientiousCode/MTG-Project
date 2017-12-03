@@ -63,7 +63,7 @@ public class Header {
 				+ "					<input type=\"submit\" value=\"Sign Up\">"
 				+ "				</form>"
 				+ "				<form method=get action=recoverpassword.jsp>"
-				+ "					<input type=\"submit\" value=\"Forgot Password\">"
+				+ "					<input type=\"submit\" value=\"Forgotten Password\">"
 				+ "				</form>"
 				+ "			</td>");
 	}

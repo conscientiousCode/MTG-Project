@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="pageutils.*" %>
 <%@ page import="dto.*" %>
+<%@ page import="java.util.*" %>
 <html>
 <head>
 	<title>MTG Misprints</title>
@@ -18,9 +19,9 @@
 	
 	<table>
 				
-		<% out.println("<table>");
+		<%
 		out.println(CardInfo.getCardInfo(Search.reverseOrder(Search.getSearchResults("", null))));
-		out.println("<table>");%>
+		%>
 		
 	</table>
 	

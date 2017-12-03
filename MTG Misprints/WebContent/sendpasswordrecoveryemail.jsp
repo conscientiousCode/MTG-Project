@@ -13,7 +13,6 @@
 <%
 	out.println(pageutils.Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));
 
-	out.println("<h1>Please Input Your Email To Recover Your Password</h1>");
 	if(Email.sendPasswordRecoveryEmail(request.getParameter("email"))){
 		out.println("<h2>A recovery email has been sent: please check your email.</h2>");
 	}else{

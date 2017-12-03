@@ -11,6 +11,7 @@
 <body>
 <%
 	out.println(Header.getHeader((User)session.getAttribute("user"), (Cart)session.getAttribute("cart")));
+	out.println("<h2>Please Input Your Email To Recover Your Password</h2>");
 %>	
 	<form method=get action="sendpasswordrecoveryemail.jsp">
 		<b>email: </b><input type="text" name="email" size=30>
